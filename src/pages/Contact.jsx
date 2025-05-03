@@ -22,7 +22,7 @@ const Contact = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
-        className="w-[35%] flex flex-col gap-4 p-6 border-2 rounded-xl"
+        className="w-[35%] flex flex-col gap-4 p-6 border-2 border-black/50 rounded-xl"
       >
         <div className="flex justify-center items-center flex-col gap-4">
           <img src={Logo.logo} alt="logo" className="h-24" />

@@ -5,7 +5,7 @@ import { getMembers } from "../api";
 import { notifyError } from "../toast";
 
 const CurrentMembers = () => {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["members"],
     queryFn: getMembers,
     refetchOnWindowFocus: false,

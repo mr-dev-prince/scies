@@ -116,7 +116,7 @@ const ProfileModal = ({ onClose }) => {
         exit="hidden"
       >
         <motion.div
-          className="bg-white rounded-2xl p-6 w-[35%] shadow-2xl relative border-2"
+          className="bg-white rounded-2xl p-6 w-[35%] shadow-2xl relative border-2 border-black/50"
           variants={modalVariants}
           initial="hidden"
           animate="visible"

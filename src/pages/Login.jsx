@@ -5,6 +5,7 @@ import { loginStudent, loginUser } from "../api";
 import { useMutation } from "@tanstack/react-query";
 import { notifyError, notifySuccess } from "../toast";
 import Loader from "../components/Loader";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -62,9 +63,12 @@ const Login = () => {
 
   return (
     <div className="pt-[10vh] h-screen flex justify-center items-center">
-      <form
+      <motion.form
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         onSubmit={handleSubmit}
-        className="w-[25%] flex flex-col gap-4 p-3 border-2 rounded-xl"
+        className="w-[90%] sm:w-[60%] md:w-[40%] lg:w-[25%] flex flex-col gap-4 p-4 border-2 border-black/50 rounded-xl shadow-xl bg-white"
       >
         <div className="flex justify-center items-center flex-col gap-4">
           <img src={Logo.logo} alt="Logo" className="h-24" />
@@ -148,7 +152,7 @@ const Login = () => {
         >
           Don't have an account? <span className="text-blue-700">Register</span>
         </Link>
-      </form>
+      </motion.form>
     </div>
   );
 };

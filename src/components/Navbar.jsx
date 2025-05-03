@@ -57,7 +57,7 @@ const Navbar = () => {
               {user ? (
                 <button
                   onClick={() => setShowProfile(true)}
-                  className="h-10 w-10 flex items-center justify-center border-2 border-black text-red-600 bg-blue-200 font-semibold rounded-full "
+                  className="h-10 w-10 flex items-center justify-center border-2 border-black/50 text-red-600 bg-blue-200 font-semibold rounded-full "
                 >
                   {user.profileImg ? (
                     <img
