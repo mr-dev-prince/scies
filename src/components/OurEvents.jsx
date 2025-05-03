@@ -9,6 +9,7 @@ import { MdDelete } from "react-icons/md";
 
 const OurEvents = () => {
   const [selectedType, setSelectedType] = useState("cultural");
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   const handleFilterClick = (type) => {
     setSelectedType(type);
@@ -70,6 +71,9 @@ const OurEvents = () => {
               description={event.description}
               src={event.imageUrl}
               onDelete={() => handleDelete(event._id)}
+              deleteEnabled={
+                currentUser?.role === "admin" || currentUser?.role === "council"
+              }
             />
           ))}
         </div>
@@ -78,15 +82,24 @@ const OurEvents = () => {
   );
 };
 
-const EventCard = ({ title, date, description, src, onDelete }) => {
+const EventCard = ({
+  title,
+  date,
+  description,
+  src,
+  onDelete,
+  deleteEnabled,
+}) => {
   return (
     <div className="bg-white/50 shadow-md rounded-lg p-4 mb-4 flex h-[50vh] w-full gap-5 relative">
-      <button
-        onClick={onDelete}
-        className="absolute top-2 right-2 text-red-500 bg-white p-2 rounded-lg cursor-pointer hover:scale-110 duration-200"
-      >
-        <MdDelete size={16} />
-      </button>
+      {deleteEnabled && (
+        <button
+          onClick={onDelete}
+          className="absolute top-2 right-2 text-red-500 bg-white p-2 rounded-lg cursor-pointer hover:scale-110 duration-200"
+        >
+          <MdDelete size={16} />
+        </button>
+      )}
       <div className="h-full w-[50%]">
         <img
           src={src}

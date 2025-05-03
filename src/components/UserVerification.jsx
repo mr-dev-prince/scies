@@ -1,7 +1,7 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getUnverifiedUsers } from "../api";
-import { notifyError } from "../toast";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getUnverifiedUsers, verifyUser } from "../api";
+import { notifyError, notifySuccess } from "../toast";
 
 const UserVerifications = () => {
   const { data, isLoading } = useQuery({
@@ -12,18 +12,18 @@ const UserVerifications = () => {
     onError: () => notifyError("Failed to fetch unverified users."),
   });
 
-  //   const { mutate } = useMutation({
-  //     mutationFn: verifyUser,
-  //     onSuccess: () => {
-  //       notifySuccess("User verified successfully.");
-  //       queryClient.invalidateQueries(["unverifiedUsers"]);
-  //     },
-  //     onError: () => notifyError("Failed to verify user."),
-  //   });
+  const { mutate } = useMutation({
+    mutationFn: verifyUser,
+    onSuccess: () => {
+      notifySuccess("User verified successfully.");
+      window.location.reload();
+    },
+    onError: () => notifyError("Failed to verify user."),
+  });
 
-  //   const handleVerify = (userId) => {
-  //     mutate(userId);
-  //   };
+  const handleVerify = (userId) => {
+    mutate(userId);
+  };
 
   const unverifiedUsers = data?.unverifiedUsers || [];
 
@@ -46,7 +46,10 @@ const UserVerifications = () => {
               <h3 className="text-lg font-bold text-gray-800">{user.name}</h3>
               <p className="text-gray-600">{user.email}</p>
               <p className="text-gray-500 capitalize">{user.role}</p>
-              <button className="    bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+              <button
+                onClick={() => handleVerify(user._id)}
+                className=" bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+              >
                 Verify
               </button>
             </div>

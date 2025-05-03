@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { acceptNomination, getNominations, rejectNomination } from "../api";
+import { acceptNomination, getNominations, rejectNomination } from "../api.js";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import Loader from "./Loader";
+import Loader from "./Loader.jsx";
 import { notifyError, notifySuccess } from "../toast.js";
 
 const NominationRequests = () => {

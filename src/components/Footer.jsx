@@ -11,12 +11,11 @@ const Footer = () => {
   return (
     <footer className="bg-transparent text-black py-10 mt-10 border-t border-gray-700/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <img src={Logo.logo} alt="" className="h-24" />
-            <p className="text-sm text-gray-400 mt-10">
-              Empowering students through events, leadership, and community.
-              Join us in shaping tomorrow.
+        <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-0">
+          <div className="md:w-1/4">
+            <img src={Logo.logo} alt="SCIES Logo" className="h-12 mb-6" />
+            <p className="text-sm text-gray-500">
+              Empowering students through events, leadership, and community. Join us in shaping tomorrow.
             </p>
           </div>
           <div>
@@ -32,38 +31,22 @@ const Footer = () => {
             <h2 className="text-lg font-semibold mb-4">Council</h2>
             <ul className="space-y-2 text-sm text-black">
               <li className="hover:text-red-700 cursor-pointer">President</li>
-              <li className="hover:text-red-700 cursor-pointer">
-                Vice President
-              </li>
-              <li className="hover:ttext-red-700 cursor-pointer">Cultural</li>
+              <li className="hover:text-red-700 cursor-pointer">Vice President</li>
+              <li className="hover:text-red-700 cursor-pointer">Cultural</li>
               <li className="hover:text-red-700 cursor-pointer">Discipline</li>
             </ul>
           </div>
           <div>
             <h2 className="text-lg font-semibold mb-4">Connect With Us</h2>
             <div className="flex space-x-4">
-              <FaFacebookF
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
-              <FaInstagram
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
-              <FaTwitter
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
-              <FaLinkedin
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
+              <FaFacebookF className="text-black hover:text-red-700 cursor-pointer" size={20} />
+              <FaInstagram className="text-black hover:text-red-700 cursor-pointer" size={20} />
+              <FaTwitter className="text-black hover:text-red-700 cursor-pointer" size={20} />
+              <FaLinkedin className="text-black hover:text-red-700 cursor-pointer" size={20} />
             </div>
           </div>
         </div>
-
-        {/* Bottom Footer */}
-        <div className="mt-10 border-t border-gray-700 pt-6 text-sm text-center text-gray-400">
+        <div className="mt-10 border-t border-gray-200 pt-6 text-sm text-center text-gray-400">
           © {new Date().getFullYear()} SCIES. All rights reserved.
         </div>
       </div>

@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="font-sans min-h-screen">
       <Landing />
-      <AboutCouncil/>
+      <AboutCouncil />
       <CouncilInitiative />
     </div>
   );

@@ -9,7 +9,7 @@ const Event = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const addEventEnabled =
-    (user && user.role === "admin") || user.role === "ceo";
+    (user && user.role === "admin") || user?.role === "ceo" || false;
 
   return (
     <div className="h-fit flex flex-col justify-center items-center px-6">

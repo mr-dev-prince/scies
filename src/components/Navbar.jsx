@@ -4,10 +4,17 @@ import { Logo } from "../constants/images";
 import ProfileModal from "./ProfileModal";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = (() => {
+    const userData = localStorage.getItem("user");
+    try {
+      return userData ? JSON.parse(userData) : null;
+    } catch (error) {
+      console.error("Invalid user JSON in localStorage", error);
+      return null;
+    }
+  })();
 
   return (
     <>
@@ -17,48 +24,40 @@ const Navbar = () => {
             to="/"
             className="h-20 w-44 ml-10 items-center justify-center flex"
           >
-            <img className="h-14 " src={Logo.logo} alt="Logo" />
+            <img
+              className="h-full w-full object-contain"
+              src={Logo.logo}
+              alt="Logo"
+            />
           </Link>
-          <div className="hidden md:flex items-center space-x-6">
-            <ul className="flex space-x-6 text-white font-medium text-xl">
+          <div className="hidden md:flex items-center gap-12">
+            <ul className="flex gap-10 text-white font-medium text-xl cal-sans tracking-wider text-pretty">
               <li>
-                <Link
-                  to="/"
-                  className="hover:text-blue-600 hover:bg-gray-200/50 px-3 rounded-md py-1 duration-200"
-                >
+                <Link to="/" className="hover:text-black duration-200">
                   Home
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/events"
-                  className="hover:text-blue-600 hover:bg-gray-200/50 px-3 rounded-md py-1 duration-200"
-                >
+                <Link to="/events" className="hover:text-black duration-200">
                   Events
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/members"
-                  className="hover:text-blue-600 hover:bg-gray-200/50 px-3 rounded-md py-1 duration-200"
-                >
+                <Link to="/members" className="hover:text-black duration-200">
                   Members
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/contact"
-                  className="hover:text-blue-600 hover:bg-gray-200/50 duration-200 px-3 rounded-md py-1"
-                >
+                <Link to="/contact" className="hover:text-black  duration-200 ">
                   Contact
                 </Link>
               </li>
             </ul>
-            <div className="space-x-4">
+            <div>
               {user ? (
                 <button
                   onClick={() => setShowProfile(true)}
-                  className="h-10 w-10 flex items-center justify-center border-2 border-blue-600 text-red-600 bg-blue-200 font-semibold rounded-full "
+                  className="h-10 w-10 flex items-center justify-center border-2 border-black text-red-600 bg-blue-200 font-semibold rounded-full "
                 >
                   {user.profileImg ? (
                     <img
@@ -80,53 +79,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          <div className="md:hidden">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="focus:outline-none"
-            >
-              <div className="space-y-1">
-                <div className="w-6 h-0.5 bg-gray-700"></div>
-                <div className="w-6 h-0.5 bg-gray-700"></div>
-                <div className="w-6 h-0.5 bg-gray-700"></div>
-              </div>
-            </button>
-          </div>
         </div>
-        {menuOpen && (
-          <div className="md:hidden mt-4 space-y-4 text-gray-700 font-medium">
-            <ul className="space-y-2">
-              <li>
-                <Link to="/" className="hover:text-blue-600">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="hover:text-blue-600">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-blue-600">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link to="/college" className="hover:text-blue-600">
-                  College
-                </Link>
-              </li>
-            </ul>
-            <div className="space-y-2 pt-2">
-              <button className="w-full px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-100 transition">
-                Sign Up
-              </button>
-              <button className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                Login
-              </button>
-            </div>
-          </div>
-        )}
       </div>
       {showProfile && (
         <ProfileModal user={user} onClose={() => setShowProfile(false)} />

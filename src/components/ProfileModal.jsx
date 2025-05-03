@@ -5,7 +5,7 @@ import dummy from "../assets/dummy.jpeg";
 import { FaPenAlt } from "react-icons/fa";
 import { notifyError, notifySuccess } from "../toast";
 import { useMutation } from "@tanstack/react-query";
-import { editUser, uploadImage } from "../api";
+import { editUser, editStudent, uploadImage } from "../api";
 import Loader from "./Loader";
 
 const backdropVariants = {
@@ -36,34 +36,33 @@ const ProfileModal = ({ onClose }) => {
   const navigate = useNavigate();
   const fileInputRef = useRef();
 
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const userData = localStorage.getItem("user");
+  const currentUser = userData ? JSON.parse(userData) : null;
 
-  const handleIconClick = () => {
-    fileInputRef.current.click();
-    setEditMode(true);
-  };
+  const { mutate: saveChanges, isPending } = useMutation({
+    mutationFn: async (formData) => {
+      const uploadRes = await uploadImage(formData);
+      const imageUrl = uploadRes?.data?.imageUrl;
+      if (!imageUrl) throw new Error("Image upload failed");
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: uploadImage,
-    onSuccess: async (data) => {
-      const res = await editUser(currentUser?._id, {
-        profileImg: data.data.imageUrl,
-      });
-      if (res.error) {
-        console.log(res.error);
-        notifyError("Failed to update profile.");
-        return;
-      }
+      const editFn = currentUser?.role === "student" ? editStudent : editUser;
+      return await editFn(currentUser._id, { profileImg: imageUrl });
+    },
+    onSuccess: (res) => {
       localStorage.setItem("user", JSON.stringify(res.user));
       notifySuccess("Profile updated successfully");
       setImage(null);
       onClose();
     },
-    onError: (error) => {
-      console.log("error->", error);
+    onError: () => {
       notifyError("Failed to update profile.");
     },
   });
+
+  const handleIconClick = () => {
+    fileInputRef.current.click();
+    setEditMode(true);
+  };
 
   const handleSave = () => {
     if (!image) {
@@ -72,7 +71,7 @@ const ProfileModal = ({ onClose }) => {
     }
     const formData = new FormData();
     formData.append("file", image);
-    mutate(formData);
+    saveChanges(formData);
   };
 
   const selectImage = (e) => {
@@ -91,7 +90,21 @@ const ProfileModal = ({ onClose }) => {
     }, 300);
   };
 
-  if (!currentUser) return null;
+  if (!currentUser) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="bg-white p-4 rounded-md shadow">
+          <p className="text-red-600">User not logged in.</p>
+          <button
+            className="mt-2 px-4 py-2 bg-blue-600 text-white rounded"
+            onClick={() => navigate("/login")}
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AnimatePresence>
@@ -103,7 +116,7 @@ const ProfileModal = ({ onClose }) => {
         exit="hidden"
       >
         <motion.div
-          className="bg-white rounded-2xl p-6 w-[30%] shadow-2xl relative border-2"
+          className="bg-white rounded-2xl p-6 w-[35%] shadow-2xl relative border-2"
           variants={modalVariants}
           initial="hidden"
           animate="visible"
@@ -126,7 +139,7 @@ const ProfileModal = ({ onClose }) => {
                     ? preview || currentUser.profileImg || dummy
                     : currentUser.profileImg || dummy
                 }
-                alt=""
+                alt="Profile"
                 className="h-24 w-24 rounded-xl object-cover"
               />
               <input
@@ -165,18 +178,19 @@ const ProfileModal = ({ onClose }) => {
               >
                 Log Out
               </button>
-              {currentUser.role === "ceo" ||
-                ("admin" && (
-                  <button
-                    onClick={() => {
-                      navigate("/dashboard");
-                      onClose();
-                    }}
-                    className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
-                  >
-                    Dashboard
-                  </button>
-                ))}
+              {(currentUser.role === "council" ||
+                currentUser.role === "admin" ||
+                currentUser.role === "faculty") && (
+                <button
+                  onClick={() => {
+                    navigate("/dashboard");
+                    onClose();
+                  }}
+                  className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
+                >
+                  Dashboard
+                </button>
+              )}
             </div>
           )}
         </motion.div>

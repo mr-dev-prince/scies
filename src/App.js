@@ -10,11 +10,13 @@ import Members from "./pages/Members";
 import Contact from "./pages/Contact";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard";
+import { ScrollToTop } from "./utils/helper";
 
 const App = () => {
   return (
     <Router>
       <Navbar />
+      <ScrollToTop />
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Home />} />

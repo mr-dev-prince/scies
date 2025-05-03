@@ -111,7 +111,6 @@ const AddEventModal = ({ onClose }) => {
             <option value="sports">Sports</option>
             <option value="Management">Management</option>
             <option value="Social">Social</option>
-            <option value="election">Election</option>
             <option value="other">Other</option>
           </select>
           <input

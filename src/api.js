@@ -7,12 +7,20 @@ export const api = axios.create({
 // user apis
 export const registerUser = (data) =>
   api.post("/user/register", data).then((res) => res.data);
+export const registerStudent = (data) =>
+  api.post("/user/register-student", data).then((res) => res.data);
+export const loginStudent = (data) =>
+  api.post("/user/login-student", data).then((res) => res.data);
+export const editStudent = (studentId, data) =>
+  api.put(`/user/edit-student/${studentId}`, data).then((res) => res.data);
 export const loginUser = (data) =>
   api.post("/user/login", data).then((res) => res.data);
 export const editUser = (userId, data) =>
   api.put(`/user/edit/${userId}`, data).then((res) => res.data);
 export const getUnverifiedUsers = () =>
   api.get("/user/unverified").then((res) => res.data);
+export const verifyUser = (userId) =>
+  api.post(`/user/verify/${userId}`).then((res) => res.data);
 
 // event apis
 export const createEvent = (data) =>
@@ -49,6 +57,14 @@ export const addVote = (data) =>
   api.post("/vote/add", data).then((res) => res.data);
 export const getVotes = () =>
   api.get("/vote/getAllVotes").then((res) => res.data);
+
+// member apis
+export const createMember = (data) =>
+  api.post("/member/create", data).then((res) => res.data);
+export const getMembers = () =>
+  api.get("/member/get-all").then((res) => res.data);
+export const deleteMember = (memberId) =>
+  api.delete(`/member/delete/${memberId}`).then((res) => res.data);
 
 // upload image
 export const uploadImage = (data) =>

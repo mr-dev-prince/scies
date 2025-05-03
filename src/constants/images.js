@@ -2,7 +2,7 @@ import gv1 from "../assets/GV.JPG";
 import gv2 from "../assets/GV2.JPG";
 import RJ from "../assets/RJ.JPG";
 import gv8 from "../assets/GV8.JPG";
-import logo from "../assets/logo.png";
+import logo from "../assets/logoOG.png";
 
 export const Logo = {
   logo,

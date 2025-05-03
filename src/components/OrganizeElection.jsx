@@ -14,6 +14,7 @@ const OrganizeElection = () => {
     name: "",
     description: "",
     startDate: "",
+    nominationCloseDate: "",
     endDate: "",
     positions: [{ title: "", maxCandidates: 1 }],
     imageUrl: null,
@@ -140,9 +141,9 @@ const OrganizeElection = () => {
             <label htmlFor="startDate">Election Start Date</label>
             <input
               placeholder="Start Date"
-              type="datetime-local"
+              type="date"
               name="startDate"
-              value={form.startDate || new Date().toISOString().slice(0, 16)}
+              value={form.startDate}
               onChange={handleChange}
               className="w-full border p-2 rounded"
               required
@@ -152,9 +153,21 @@ const OrganizeElection = () => {
             <label htmlFor="endDate">Election End Date</label>
             <input
               placeholder="End Date"
-              type="datetime-local"
+              type="date"
               name="endDate"
-              value={form.endDate || new Date().toISOString().slice(0, 16)}
+              value={form.endDate}
+              onChange={handleChange}
+              className="w-full border p-2 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="startDate">Nomination Close Date</label>
+            <input
+              placeholder="Nomination Close Date"
+              type="date"
+              name="nominationCloseDate"
+              value={form.nominationCloseDate}
               onChange={handleChange}
               className="w-full border p-2 rounded"
               required
