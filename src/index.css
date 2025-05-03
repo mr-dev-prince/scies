@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply bg-gradient-to-b from-white via-sky-400 to-sky-600;
+}
+
+.cal-sans {
+  font-family: "Cal Sans", sans-serif;
+  font-style: normal;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
