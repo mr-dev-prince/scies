@@ -20,17 +20,17 @@ const Register = () => {
 
   const mutation = useMutation({
     mutationFn: async (data) => {
-      return formData.role === "student" || formData.role === "council"
+      return formData.role === "student"
         ? await registerStudent(data)
         : await registerUser(data);
     },
     onSuccess: (data) => {
       if (data.user.role === "student") {
-        notifySuccess("Registered successfully");
+        notifySuccess("Registeration successful.");
         localStorage.setItem("student", JSON.stringify(data.user));
       } else {
         notifySuccess(
-          "Registered successfully, please wait for admin approval"
+          "Registered successfully, please contact admin for approval."
         );
       }
       setFormData({
@@ -41,6 +41,7 @@ const Register = () => {
         role: "",
       });
       navigate("/");
+      window.location.reload();
     },
     onError: (error) => {
       notifyError("Registration failed", error?.message);
@@ -49,7 +50,11 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "enrollmentNumber") {
+      setFormData((prev) => ({ ...prev, [name]: value.toUpperCase() }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {

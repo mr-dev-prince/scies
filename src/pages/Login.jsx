@@ -25,7 +25,7 @@ const Login = () => {
     },
     onSuccess: (data) => {
       localStorage.setItem("user", JSON.stringify(data.user));
-      notifySuccess("Logged in successfully");
+      notifySuccess("Login successful.");
       setFormData({
         email: "",
         enrollmentNumber: "",
@@ -42,7 +42,11 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "enrollmentNumber") {
+      setFormData((prev) => ({ ...prev, [name]: value.toUpperCase() }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -88,7 +92,7 @@ const Login = () => {
             className="w-full py-1 border-2 border-gray-400 font-semibold rounded-md indent-2 focus:border-blue-700 outline-none"
           >
             <option value="">Select Role</option>
-            <option value="council">Council</option>
+            <option value="council">Council Member</option>
             <option value="admin">Admin</option>
             <option value="faculty">Faculty</option>
             <option value="student">Student</option>
