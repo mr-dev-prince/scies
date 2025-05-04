@@ -91,11 +91,11 @@ const EventCard = ({
   deleteEnabled,
 }) => {
   return (
-    <div className="bg-white/50 shadow-md rounded-lg p-4 mb-4 flex h-[50vh] w-full gap-5 relative">
+    <div className="bg-white/50 shadow-md rounded-md p-4 mb-4 flex h-[50vh] w-full gap-5 relative">
       {deleteEnabled && (
         <button
           onClick={onDelete}
-          className="absolute top-2 right-2 text-red-500 bg-white p-2 rounded-lg cursor-pointer hover:scale-110 duration-200"
+          className="absolute top-2 right-2 text-red-500 bg-white p-2 rounded-md cursor-pointer hover:scale-110 duration-200"
         >
           <MdDelete size={16} />
         </button>
@@ -104,7 +104,7 @@ const EventCard = ({
         <img
           src={src}
           alt=""
-          className="h-full w-full object-cover rounded-xl"
+          className="h-full w-full object-cover rounded-md"
         />
       </div>
       <div>

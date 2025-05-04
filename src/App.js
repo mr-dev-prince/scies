@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard";
 import { ScrollToTop } from "./utils/helper";
+import Elections from "./pages/Elections";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/events" element={<Event />} />
         <Route path="/members" element={<Members />} />
+        <Route path="/elections" element={<Elections />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>

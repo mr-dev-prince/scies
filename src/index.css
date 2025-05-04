@@ -20,3 +20,11 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.input-uppercase {
+  text-transform: uppercase;
+}
+
+.input-uppercase::placeholder {
+  text-transform: none;
+}

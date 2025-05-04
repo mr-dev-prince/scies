@@ -65,6 +65,10 @@ export const getMembers = () =>
   api.get("/member/get-all").then((res) => res.data);
 export const deleteMember = (memberId) =>
   api.delete(`/member/delete/${memberId}`).then((res) => res.data);
+export const getUnVerifiedMembers = () =>
+  api.get("/member/unverified").then((res) => res.data);
+export const verifyMember = (memberId) =>
+  api.post(`/member/verify/${memberId}`).then((res) => res.data);
 
 // upload image
 export const uploadImage = (data) =>

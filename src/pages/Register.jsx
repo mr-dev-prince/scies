@@ -20,7 +20,7 @@ const Register = () => {
 
   const mutation = useMutation({
     mutationFn: async (data) => {
-      return formData.role === "student"
+      return formData.role === "student" || formData.role === "council"
         ? await registerStudent(data)
         : await registerUser(data);
     },
@@ -67,7 +67,7 @@ const Register = () => {
     }
 
     const payload =
-      role === "student"
+      role === "student" || "council"
         ? { name, email, enrollmentNumber, password, role }
         : { name, email, password, role };
 
@@ -81,7 +81,7 @@ const Register = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         onSubmit={handleSubmit}
-        className="w-[90%] sm:w-[60%] md:w-[40%] lg:w-[30%] flex flex-col gap-4 p-4 border-2 border-black/50 rounded-xl shadow-xl bg-white"
+        className="w-[90%] sm:w-[60%] md:w-[40%] lg:w-[30%] flex flex-col gap-4 p-4 border-2 border-black/50 rounded-md shadow-xl bg-white"
       >
         <div className="flex justify-center items-center flex-col gap-4">
           <img src={Logo.logo} alt="Logo" className="h-24" />
@@ -132,7 +132,7 @@ const Register = () => {
             className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none"
           />
         </div>
-        {formData.role === "student" && (
+        {formData.role === ("student" || "council") && (
           <div className="flex flex-col gap-1">
             <label
               htmlFor="enrollmentNumber"
@@ -145,8 +145,8 @@ const Register = () => {
               name="enrollmentNumber"
               value={formData.enrollmentNumber}
               onChange={handleChange}
-              placeholder="Enter Enrollment No"
-              className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none uppercase"
+              placeholder="Enter Enrollment Number"
+              className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none input-uppercase"
             />
           </div>
         )}

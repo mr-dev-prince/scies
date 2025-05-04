@@ -15,7 +15,6 @@ const OrganizeElection = () => {
     description: "",
     startDate: "",
     nominationCloseDate: "",
-    endDate: "",
     positions: [{ title: "", maxCandidates: 1 }],
     imageUrl: null,
   });
@@ -78,7 +77,6 @@ const OrganizeElection = () => {
         name: "",
         description: "",
         startDate: "",
-        endDate: "",
         positions: [{ title: "", maxCandidates: 1 }],
         imageUrl: null,
       });
@@ -86,8 +84,9 @@ const OrganizeElection = () => {
       setPreview(null);
     },
     onError: (error) => {
-      console.log("error->", error);
-      notifyError("Failed to create election.");
+      notifyError(
+        error?.response?.data?.message || "Failed to create election."
+      );
     },
   });
 
@@ -97,7 +96,6 @@ const OrganizeElection = () => {
       form.name === "" ||
       form.description === "" ||
       form.startDate === "" ||
-      form.endDate === "" ||
       form.positions.length === 0 ||
       form.positions.some(
         (pos) => pos.title === "" || pos.maxCandidates <= 0
@@ -113,10 +111,7 @@ const OrganizeElection = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md w-full mt-8 mx-auto">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-        Organize New Election
-      </h2>
+    <div className="bg-white p-6 rounded-md shadow-md w-full mt-2 mx-auto">
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -138,24 +133,12 @@ const OrganizeElection = () => {
         />
         <div className="flex gap-4">
           <div>
-            <label htmlFor="startDate">Election Start Date</label>
+            <label htmlFor="startDate">Election Date</label>
             <input
               placeholder="Start Date"
               type="date"
               name="startDate"
               value={form.startDate}
-              onChange={handleChange}
-              className="w-full border p-2 rounded"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="endDate">Election End Date</label>
-            <input
-              placeholder="End Date"
-              type="date"
-              name="endDate"
-              value={form.endDate}
               onChange={handleChange}
               className="w-full border p-2 rounded"
               required
@@ -205,30 +188,32 @@ const OrganizeElection = () => {
                 <button
                   type="button"
                   onClick={() => removePosition(index)}
-                  className="bg-red-500 text-white px-3 py-1 rounded-lg hover:scale-95"
+                  className="bg-red-500 text-white px-3 py-1 rounded-md hover:scale-95"
                 >
                   Remove
                 </button>
               )}
             </div>
           ))}
-          <button
-            type="button"
-            onClick={addPosition}
-            className="mt-2 px-3 py-2 rounded text-white bg-blue-600 hover:scale-95"
-          >
-            + Add Position
-          </button>
-        </div>
-        <div>
-          <div>
+          <div className="flex gap-4">
+            <button
+              type="button"
+              onClick={addPosition}
+              className="w-[10vw] py-2  rounded text-white bg-blue-600 hover:scale-95"
+            >
+              + Add Position
+            </button>
             <button
               type="button"
               onClick={triggerFileInput}
-              className="bg-blue-600 text-white border px-4 py-2 rounded shadow hover:scale-95"
+              className="w-[10vw] bg-blue-600 text-white border px-3 py-2 rounded shadow hover:scale-95"
             >
               {image ? "Change Image" : "Select Image"}
             </button>
+          </div>
+        </div>
+        <div>
+          <div>
             <input
               type="file"
               accept="image/*"
@@ -247,7 +232,7 @@ const OrganizeElection = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-600 w-[20%] text-white px-4 py-2 rounded hover:bg-green-700 flex justify-center items-center"
+          className="bg-blue-600 w-full text-white px-4 py-3 mt-6 font-semibold rounded hover:bg-green-700 duration-200 flex justify-center items-center"
         >
           {isPending ? <Loader /> : "Create Election"}
         </button>

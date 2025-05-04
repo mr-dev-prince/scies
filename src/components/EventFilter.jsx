@@ -29,7 +29,7 @@ const FilterButton = ({ title, handleFilterClick, isSelected }) => {
       onClick={() => handleFilterClick(title)}
       className={`${
         isSelected ? "bg-red-700" : "bg-gray-800"
-      } px-12 text-white py-2 rounded-xl hover:bg-red-700 duration-300 capitalize`}
+      } px-12 text-white py-2 rounded-md hover:bg-red-700 duration-300 capitalize`}
     >
       {title}
     </button>
@@ -38,7 +38,7 @@ const FilterButton = ({ title, handleFilterClick, isSelected }) => {
 
 const EventFilter = ({ handleFilterClick, selected }) => {
   return (
-    <div className="flex flex-wrap justify-center items-center bg-gray-500 p-2 rounded-xl gap-4">
+    <div className="flex flex-wrap justify-center items-center bg-gray-500 p-2 rounded-md gap-4">
       {filter.map((item) => (
         <FilterButton
           key={item.id}

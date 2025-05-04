@@ -22,7 +22,7 @@ const Contact = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
-        className="w-[35%] flex flex-col gap-4 p-6 border-2 border-black/50 rounded-xl"
+        className="w-[30%] flex flex-col gap-3 p-4 border-2 border-black/50 rounded-md"
       >
         <div className="flex justify-center items-center flex-col gap-4">
           <img src={Logo.logo} alt="logo" className="h-24" />
@@ -30,7 +30,6 @@ const Contact = () => {
             Contact Us
           </p>
         </div>
-
         <div className="flex flex-col gap-1">
           <label htmlFor="name" className="font-semibold text-gray-600">
             Name
@@ -63,7 +62,7 @@ const Contact = () => {
             required
             className="w-full py-1 border-2 border-gray-400 font-semibold rounded-md indent-2 focus:border-blue-700 outline-none"
           >
-            <option value="">Select Category</option>
+            <option value="" disabled>Select Category</option>
             <option value="query">General Query</option>
             <option value="grievance">Grievance</option>
             <option value="suggestion">Suggestion</option>

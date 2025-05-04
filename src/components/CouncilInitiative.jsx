@@ -42,7 +42,7 @@ const CouncilInitiative = () => {
             src={image.src}
             alt={image.title}
             variants={itemVariants}
-            className="rounded-lg shadow-lg mb-4 h-[25vh] w-[25vw] object-cover mx-auto"
+            className="rounded-md shadow-lg mb-4 h-[25vh] w-[25vw] object-cover mx-auto"
           />
         ))}
       </div>
@@ -59,7 +59,7 @@ const CouncilInitiative = () => {
       <motion.div variants={itemVariants}>
         <Link
           to="/events"
-          className="bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition"
+          className="bg-white hover:bg-black text-black font-semibold  hover:text-white px-12 py-3 rounded-md duration-200"
         >
           View Events
         </Link>

@@ -68,7 +68,7 @@ const Login = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         onSubmit={handleSubmit}
-        className="w-[90%] sm:w-[60%] md:w-[40%] lg:w-[25%] flex flex-col gap-4 p-4 border-2 border-black/50 rounded-xl shadow-xl bg-white"
+        className="w-[90%] sm:w-[60%] md:w-[40%] lg:w-[25%] flex flex-col gap-4 p-4 border-2 border-black/50 rounded-md shadow-xl bg-white"
       >
         <div className="flex justify-center items-center flex-col gap-4">
           <img src={Logo.logo} alt="Logo" className="h-24" />
@@ -108,7 +108,7 @@ const Login = () => {
               value={formData.enrollmentNumber}
               onChange={handleChange}
               placeholder="Enter enrollment number"
-              className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none uppercase"
+              className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none input-uppercase"
             />
           </div>
         ) : (
