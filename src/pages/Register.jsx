@@ -8,6 +8,7 @@ import { notifyError, notifyInfo, notifySuccess } from "../toast";
 import { motion } from "framer-motion";
 
 const Register = () => {
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,7 +17,14 @@ const Register = () => {
     role: "",
   });
 
+  const [enrollmentError, setEnrollmentError] = useState("");
+
   const navigate = useNavigate();
+
+  const validateEnrollmentNumber = (enrollNum) => {
+    const enrollmentRegex = /^0177[A-Z]{2}\d{2}\d{4}$/;
+    return enrollmentRegex.test(enrollNum);
+  };
 
   const mutation = useMutation({
     mutationFn: async (data) => {
@@ -26,12 +34,14 @@ const Register = () => {
     },
     onSuccess: (data) => {
       if (data.user.role === "student") {
-        notifySuccess("Registeration successful.");
-        localStorage.setItem("student", JSON.stringify(data.user));
+        localStorage.setItem("user", JSON.stringify(data.user));
+        notifySuccess("Registration successful.");
+        navigate("/", { state: { from: "register" } });
       } else {
         notifySuccess(
-          "Registered successfully, please contact admin for approval."
+          "Registration successful. Please contact admin for approval and login."
         );
+        navigate("/login");
       }
       setFormData({
         name: "",
@@ -40,18 +50,35 @@ const Register = () => {
         enrollmentNumber: "",
         role: "",
       });
-      navigate("/");
-      window.location.reload();
+      setEnrollmentError("");
     },
     onError: (error) => {
-      notifyError("Registration failed", error?.message);
+      notifyError(error?.response?.data?.message || "Registration failed.");
     },
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "enrollmentNumber") {
-      setFormData((prev) => ({ ...prev, [name]: value.toUpperCase() }));
+      const upperValue = value.toUpperCase();
+      setFormData((prev) => ({ ...prev, [name]: upperValue }));
+      if (!upperValue) {
+        setEnrollmentError("");
+      } else if (
+        upperValue.length === 12 &&
+        !validateEnrollmentNumber(upperValue)
+      ) {
+        setEnrollmentError(
+          "Invalid format. Expected: 0177XX##0000 (XX=branch, ##=year, 0000=roll)"
+        );
+      } else if (
+        upperValue.length === 12 &&
+        validateEnrollmentNumber(upperValue)
+      ) {
+        setEnrollmentError("");
+      } else if (upperValue.length !== 12) {
+        setEnrollmentError("Enrollment number must be 12 characters");
+      }
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -71,8 +98,13 @@ const Register = () => {
       return;
     }
 
+    if (role === "student" && !validateEnrollmentNumber(enrollmentNumber)) {
+      notifyInfo("Please enter a valid enrollment number");
+      return;
+    }
+
     const payload =
-      role === "student" || "council"
+      role === "student" || role === "council"
         ? { name, email, enrollmentNumber, password, role }
         : { name, email, password, role };
 
@@ -112,7 +144,7 @@ const Register = () => {
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="name" className="font-semibold text-gray-600 capitalize">
+          <label htmlFor="name" className="font-semibold text-gray-600">
             Name
           </label>
           <input
@@ -121,7 +153,7 @@ const Register = () => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter your name"
-            className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none"
+            className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none capitalize"
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -137,7 +169,7 @@ const Register = () => {
             className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none"
           />
         </div>
-        {formData.role === ("student" || "council") && (
+        {(formData.role === "student" || formData.role === "council") && (
           <div className="flex flex-col gap-1">
             <label
               htmlFor="enrollmentNumber"
@@ -150,9 +182,18 @@ const Register = () => {
               name="enrollmentNumber"
               value={formData.enrollmentNumber}
               onChange={handleChange}
-              placeholder="Enter Enrollment Number"
-              className="w-full py-1 font-semibold border-2 border-gray-400 rounded-md indent-2 focus:border-blue-700 outline-none input-uppercase"
+              placeholder="Format: 0177CS221142"
+              maxLength={12}
+              className={`w-full py-1 font-semibold border-2 ${
+                enrollmentError ? "border-red-500" : "border-gray-400"
+              } rounded-md indent-2 focus:border-blue-700 outline-none input-uppercase`}
             />
+            {enrollmentError && (
+              <p className="text-xs text-red-500">{enrollmentError}</p>
+            )}
+            <p className="text-xs text-gray-500 mt-1">
+              0177 (fixed) + CS (branch) + 22 (year) + 1142 (roll number)
+            </p>
           </div>
         )}
         <div className="flex flex-col gap-1">

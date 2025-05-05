@@ -1,8 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { councilMembers } from "../constants/images";
 import { Link } from "react-router-dom";
 import sc from "../assets/sc.jpeg";
+import { useQuery } from "@tanstack/react-query";
+import { getMembers } from "../api";
+import { notifyError } from "../toast";
+import { DummyCard, MemberCard } from "./CurrentMembers";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -21,6 +24,27 @@ const cardVariants = {
 };
 
 const AboutCouncil = () => {
+  const { data } = useQuery({
+    queryKey: ["members"],
+    queryFn: getMembers,
+    refetchOnWindowFocus: false,
+    onError: () => {
+      notifyError("Failed to fetch members.");
+    },
+  });
+
+  const president = data?.find(
+    (member) => member.position.toLowerCase() === "president"
+  );
+
+  const vicePresident = data?.find(
+    (member) => member.position.toLowerCase() === "vice president"
+  );
+
+  const secretary = data?.find(
+    (member) => member.position.toLowerCase() === "secretary"
+  );
+
   return (
     <div className="h-fit">
       <motion.section
@@ -76,23 +100,15 @@ const AboutCouncil = () => {
         </motion.p>
         <motion.div
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-6xl mx-auto mt-4"
+          className="flex justify-center items-center gap-16"
         >
-          {councilMembers.map((member, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              className="bg-gray-100 rounded-md p-6 shadow-md hover:shadow-xl transition flex justify-center items-center flex-col"
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="rounded-full w-32 h-32 mx-auto mb-4 object-cover"
-              />
-              <h3 className="text-xl font-bold">{member.name}</h3>
-              <p className="text-blue-600">{member.role}</p>
-            </motion.div>
-          ))}
+          {president ? <MemberCard member={president} /> : <DummyCard />}
+          {vicePresident ? (
+            <MemberCard member={vicePresident} />
+          ) : (
+            <DummyCard />
+          )}
+          {secretary ? <MemberCard member={secretary} /> : <DummyCard />}
         </motion.div>
         <motion.div variants={cardVariants} className="mt-10 text-center">
           <Link

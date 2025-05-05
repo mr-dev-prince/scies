@@ -68,7 +68,6 @@ const OrganizeElection = () => {
       setForm(updatedForm);
       const res = createElection(updatedForm);
       if (res.error) {
-        console.log(res.error);
         notifyError("Failed to create election.");
         return;
       }

@@ -6,10 +6,10 @@ import AddEventModal from "../components/AddEventModal";
 const Event = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const addEventEnabled =
-    (user && user.role === "admin") || user?.role === "ceo" || false;
+    (currentUser && currentUser.role === ("admin" || "council")) || false;
 
   return (
     <div className="h-fit flex flex-col justify-center items-center px-6">

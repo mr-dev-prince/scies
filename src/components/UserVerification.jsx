@@ -25,7 +25,8 @@ const UserVerifications = () => {
     mutate(userId);
   };
 
-  const unverifiedUsers = data?.unverifiedUsers || [];
+  const unverifiedUsers =
+    data?.unverifiedUsers.filter((user) => user.role !== "council") || [];
 
   return (
     <div className="bg-white p-6 rounded-md shadow-md">

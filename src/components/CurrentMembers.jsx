@@ -62,7 +62,7 @@ const CurrentMembers = () => {
   );
 };
 
-const MemberCard2 = () => {
+export const MemberCard2 = () => {
   return (
     <div
       className={`flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[25vh] w-[15vw]`}
@@ -82,7 +82,7 @@ const MemberCard2 = () => {
   );
 };
 
-const MemberCard = ({ member }) => {
+export const MemberCard = ({ member }) => {
   const { student } = member || {};
   return (
     <div
@@ -103,7 +103,7 @@ const MemberCard = ({ member }) => {
   );
 };
 
-const DummyCard = () => {
+export const DummyCard = () => {
   return (
     <div
       className={`flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[30vh] w-[15vw]`}

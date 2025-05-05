@@ -32,8 +32,7 @@ const Login = () => {
         password: "",
         role: "",
       });
-      navigate("/");
-      window.location.reload();
+      navigate("/", { state: { from: "register" } });
     },
     onError: (error) => {
       notifyError(error?.response?.data?.message || "Login failed");

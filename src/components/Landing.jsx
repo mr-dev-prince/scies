@@ -22,12 +22,12 @@ const Landing = () => {
           IES University, Bhopal
         </motion.p>
         <motion.p
-          className="text-2xl mt-10"
+          className="text-xl mt-10 font-sans"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 2, ease: "easeOut" }}
         >
-          2025
+          Empowering students through events, leadership, and community.
         </motion.p>
       </div>
     </div>

@@ -8,9 +8,6 @@ import { notifyError, notifySuccess } from "../toast";
 const Candidates = ({ role, members, electionId }) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
-
-  console.log("currentUser", currentUser);
-
   const { mutate } = useMutation({
     mutationFn: addVote,
     onSuccess: () => {

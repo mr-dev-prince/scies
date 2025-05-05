@@ -12,7 +12,6 @@ const AllContacts = () => {
     },
   });
 
-  console.log(data);
   return (
     <div className="flex h-fit bg-gray-100/50 p-2 rounded-md">
       {isLoading ? (

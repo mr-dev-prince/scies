@@ -70,7 +70,7 @@ const Dashboard = () => {
     },
     {
       key: "verification",
-      title: "User Approval : Elections",
+      title: "User Approval",
       component: <UserVerifications />,
     },
     {

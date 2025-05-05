@@ -11,6 +11,8 @@ import StickyButton from "../components/StickyButton";
 const Members = () => {
   const [activeModal, setActiveModal] = useState(null);
 
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
   const [memberData, setMemberData] = useState({
     enrollmentNumber: "",
     position: "",
@@ -82,11 +84,13 @@ const Members = () => {
         <CurrentMembers />
       </div>
       <div className="fixed top-[22%] right-0 flex flex-col gap-4 z-50 -translate-y-1/2">
-        <StickyButton
-          title="Add Member"
-          Icon={FaUserPlus}
-          onClick={() => setActiveModal("addMember")}
-        />
+        {currentUser && currentUser?.role !== ("admin" || "faculty") && (
+          <StickyButton
+            title="Add Member"
+            Icon={FaUserPlus}
+            onClick={() => setActiveModal("addMember")}
+          />
+        )}
       </div>
       <Modal
         isOpen={activeModal === "addMember"}

@@ -24,7 +24,6 @@ const AddEventModal = ({ onClose }) => {
         imageUrl: data.data.imageUrl,
       });
       if (res.error) {
-        console.log(res.error);
         notifyError("Failed to create event.");
         return;
       }
@@ -48,7 +47,12 @@ const AddEventModal = ({ onClose }) => {
   const [preview, setPreview] = useState(null);
 
   const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "type") {
+      setForm({ ...form, [name]: value.toLowerCase() });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleImageChange = (e) => {
@@ -109,8 +113,8 @@ const AddEventModal = ({ onClose }) => {
             <option value="cultural">Cultural</option>
             <option value="technical">Technical</option>
             <option value="sports">Sports</option>
-            <option value="Management">Management</option>
-            <option value="Social">Social</option>
+            <option value="management">Management</option>
+            <option value="social">Social</option>
             <option value="other">Other</option>
           </select>
           <input
