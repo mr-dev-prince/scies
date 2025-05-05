@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <Navbar />
       <ScrollToTop />
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

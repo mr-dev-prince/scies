@@ -113,7 +113,11 @@ const Elections = () => {
         {data?.elections?.length > 0 ? (
           <Voting />
         ) : (
-          <p>No elections available</p>
+          <div className="flex flex-col justify-center items-center h-screen">
+            <p className="font-semibold text-3xl">
+              No ongoing elections available
+            </p>
+          </div>
         )}
       </div>
       {data?.elections?.length > 0 && (
