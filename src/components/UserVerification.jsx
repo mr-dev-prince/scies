@@ -29,7 +29,7 @@ const UserVerifications = () => {
     data?.unverifiedUsers.filter((user) => user.role !== "council") || [];
 
   return (
-    <div className="bg-white p-6 rounded-md shadow-md">
+    <div className="bg-white p-3 rounded-md shadow-md">
       {isLoading ? (
         <p>Loading...</p>
       ) : unverifiedUsers.length === 0 ? (
@@ -39,14 +39,18 @@ const UserVerifications = () => {
           {unverifiedUsers.map((user) => (
             <div
               key={user._id}
-              className="border rounded-md p-2 shadow-sm bg-white flex justify-between w-full items-center"
+              className="border rounded-md p-2 shadow-sm bg-white flex flex-col md:flex-row justify-between items-start md:items-center w-full sm:flex-row sm:items-center sm:space-x-4"
             >
-              <h3 className="text-lg font-bold text-gray-800">{user.name}</h3>
-              <p className="text-gray-600">{user.email}</p>
-              <p className="text-gray-500 capitalize">{user.role}</p>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 md:w-[90%]">
+                <h3 className="text-lg font-bold text-gray-800 md:w-[30%]">
+                  {user.name}
+                </h3>
+                <p className="text-gray-600 w-[30%] ">{user.email}</p>
+                <p className="text-gray-500 capitalize">{user.role}</p>
+              </div>
               <button
                 onClick={() => handleVerify(user._id)}
-                className=" bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition mt-2 sm:mt-0 md:w-[10%]"
               >
                 Verify
               </button>

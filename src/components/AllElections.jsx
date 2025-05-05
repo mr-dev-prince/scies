@@ -17,12 +17,14 @@ const AllElections = () => {
   const elections = data?.elections || [];
 
   return (
-    <div className="flex h-fit bg-gray-100/50 p-2 rounded-md">
+    <div className="flex flex-col gap-4 h-fit bg-gray-100/50 p-4 rounded-md">
       {isLoading ? (
         <p>Loading...</p>
+      ) : elections.length === 0 ? (
+        <p className="text-gray-500">No elections found.</p>
       ) : (
-        <div className="w-full">
-          {elections?.map((election) => (
+        <div className="w-full space-y-4">
+          {elections.map((election) => (
             <ElectionCard key={election._id} election={election} />
           ))}
         </div>
@@ -33,14 +35,20 @@ const AllElections = () => {
 
 const ElectionCard = ({ election }) => {
   return (
-    <div className="flex justify-between items-center w-full ">
-      <h3 className="text-lg font-semibold">{election.name}</h3>
-      <p className="text-gray-600 bg-sky-500/50 w-fit px-2 py-1 rounded-md">
-        Election Date - {format(election.startDate, "dd/MM/yyyy")}
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center w-full gap-2 border bg-white p-3 rounded-md shadow-sm">
+      <h3 className="text-base sm:text-lg font-semibold text-gray-800">
+        {election.name}
+      </h3>
+      <p className="text-sm text-gray-700 bg-sky-100 px-3 py-1 rounded-md w-fit">
+        Election Date: {format(election.startDate, "dd/MM/yyyy")}
       </p>
-      <p className="text-gray-800 hover:text-red-500 cursor-pointer">
+      <button
+        type="button"
+        className="text-red-600 text-xl hover:text-red-800 self-start sm:self-center"
+        title="Delete election"
+      >
         <MdDelete />
-      </p>
+      </button>
     </div>
   );
 };

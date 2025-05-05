@@ -110,7 +110,7 @@ const OrganizeElection = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-md shadow-md w-full mt-2 mx-auto">
+    <div className="bg-white p-4 sm:p-6 rounded-md shadow-md w-full mt-2 mx-auto">
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -130,9 +130,14 @@ const OrganizeElection = () => {
           rows={3}
           required
         />
-        <div className="flex gap-4">
-          <div>
-            <label htmlFor="startDate">Election Date</label>
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <label
+              htmlFor="startDate"
+              className="block mb-1 text-sm font-medium"
+            >
+              Election Date
+            </label>
             <input
               placeholder="Start Date"
               type="date"
@@ -143,8 +148,13 @@ const OrganizeElection = () => {
               required
             />
           </div>
-          <div>
-            <label htmlFor="startDate">Nomination Close Date</label>
+          <div className="flex-1">
+            <label
+              htmlFor="nominationCloseDate"
+              className="block mb-1 text-sm font-medium"
+            >
+              Nomination Close Date
+            </label>
             <input
               placeholder="Nomination Close Date"
               type="date"
@@ -156,10 +166,14 @@ const OrganizeElection = () => {
             />
           </div>
         </div>
+
         <div>
           <h3 className="text-lg font-medium mb-2">Positions</h3>
           {form.positions.map((pos, index) => (
-            <div key={index} className="flex gap-5 mb-2 items-center">
+            <div
+              key={index}
+              className="flex flex-col sm:flex-row gap-3 sm:gap-5 mb-3 items-start sm:items-center bg-slate-100 p-2 rounded-md shadow-sm"
+            >
               <input
                 type="text"
                 value={pos.title}
@@ -167,11 +181,16 @@ const OrganizeElection = () => {
                   handlePositionChange(index, "title", e.target.value)
                 }
                 placeholder="Position Title"
-                className="flex-1 border p-2 rounded"
+                className="flex-1 border p-2 rounded w-full"
                 required
               />
-              <div className="flex items-center gap-2">
-                <label htmlFor={`maxCandidates-${index}`}>Max Candidates</label>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <label
+                  htmlFor={`maxCandidates-${index}`}
+                  className="whitespace-nowrap"
+                >
+                  Max Candidates
+                </label>
                 <input
                   type="number"
                   min={1}
@@ -179,7 +198,7 @@ const OrganizeElection = () => {
                   onChange={(e) =>
                     handlePositionChange(index, "maxCandidates", e.target.value)
                   }
-                  className="w-24 border p-2 rounded"
+                  className="w-full sm:w-24 border p-2 rounded"
                   required
                 />
               </div>
@@ -194,41 +213,39 @@ const OrganizeElection = () => {
               )}
             </div>
           ))}
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <button
               type="button"
               onClick={addPosition}
-              className="w-[10vw] py-2  rounded text-white bg-blue-600 hover:scale-95"
+              className="w-full sm:w-[200px] py-2 rounded text-white bg-blue-600 hover:scale-95"
             >
               + Add Position
             </button>
             <button
               type="button"
               onClick={triggerFileInput}
-              className="w-[10vw] bg-blue-600 text-white border px-3 py-2 rounded shadow hover:scale-95"
+              className="w-full sm:w-[200px] bg-blue-600 text-white px-3 py-2 rounded shadow hover:scale-95"
             >
               {image ? "Change Image" : "Select Image"}
             </button>
           </div>
         </div>
-        <div>
-          <div>
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              className="hidden"
-            />
-          </div>
-          {preview && (
-            <img
-              src={preview}
-              alt="Preview"
-              className="mt-2 w-[50%] h-[50vh] object-cover rounded"
-            />
-          )}
-        </div>
+
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleImageChange}
+          className="hidden"
+        />
+        {preview && (
+          <img
+            src={preview}
+            alt="Preview"
+            className="mt-2 w-full sm:w-[70%] h-[40vh] object-cover rounded"
+          />
+        )}
+
         <button
           type="submit"
           className="bg-blue-600 w-full text-white px-4 py-3 mt-6 font-semibold rounded hover:bg-green-700 duration-200 flex justify-center items-center"
