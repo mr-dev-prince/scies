@@ -25,8 +25,8 @@ const NominationRequests = () => {
       refetch();
       setProcessingId(null);
     },
-    onError: () => {
-      notifyError("Error accepting nomination.");
+    onError: (error) => {
+      notifyError(error?.response?.data?.message || "Error accepting nomination.");
       setProcessingId(null);
     },
   });

@@ -70,6 +70,12 @@ export const getUnVerifiedMembers = () =>
 export const verifyMember = (memberId) =>
   api.post(`/member/verify/${memberId}`).then((res) => res.data);
 
+// contact apis
+export const createContact = (data) =>
+  api.post("/contact/create", data).then((res) => res.data);
+export const getContacts = () =>
+  api.get("/contact/get-all").then((res) => res.data);
+
 // upload image
 export const uploadImage = (data) =>
   api.post("/upload", data, {

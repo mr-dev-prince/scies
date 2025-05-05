@@ -112,7 +112,7 @@ const Register = () => {
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="name" className="font-semibold text-gray-600">
+          <label htmlFor="name" className="font-semibold text-gray-600 capitalize">
             Name
           </label>
           <input

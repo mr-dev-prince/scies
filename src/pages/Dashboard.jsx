@@ -2,6 +2,8 @@ import React, { useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 import Loader from "../components/Loader";
+import AllContacts from "../components/AllContacts";
+import AllElections from "../components/AllElections";
 
 const NominationRequests = lazy(() =>
   import("../components/NominationRequests")
@@ -80,6 +82,16 @@ const Dashboard = () => {
       key: "election",
       title: "Organize Election",
       component: <OrganizeElection />,
+    },
+    {
+      key: "contact",
+      title: "Contact Requests",
+      component: <AllContacts />,
+    },
+    {
+      key: "electionlist",
+      title: "Election List",
+      component: <AllElections />,
     },
   ];
 
