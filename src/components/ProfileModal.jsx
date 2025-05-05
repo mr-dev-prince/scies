@@ -100,6 +100,7 @@ const ProfileModal = ({ onClose }) => {
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem("user");
+    window.location.reload();
     onClose();
     setTimeout(() => {
       navigate("/login");
