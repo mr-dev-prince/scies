@@ -71,13 +71,13 @@ const CurrentMembers = () => {
 export const MemberCard2 = ({ member }) => {
   return (
     <div
-      className={`flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[80%] sm:h-[80%] w-[40vw] sm:w-[15vw]`}
+      className={`flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[250px] w-[300px]`}
     >
       <div className="flex flex-col gap-4 justify-center items-center w-full">
         <img
           src={dummy}
           alt="Member Name"
-          className="h-12 w-12 rounded-full object-cover"
+          className="h-[120px] w-[120px] rounded-full object-cover"
         />
         <div>
           <p className="text-lg font-medium">{member.name}</p>
@@ -91,12 +91,12 @@ export const MemberCard2 = ({ member }) => {
 export const MemberCard = ({ member }) => {
   const { student } = member || {};
   return (
-    <div className="flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow w-full sm:w-[80%] md:w-[45%] lg:w-[30%] xl:w-[20%] h-auto">
+    <div className="flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[250px] w-[300px]">
       <div className="flex flex-col gap-4 justify-center items-center w-full">
         <img
           src={student?.profileImg || dummy}
           alt="Member"
-          className="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover"
+          className="h-[120px] w-[120px] rounded-full object-cover"
         />
         <div className="text-center">
           <p className="text-base sm:text-lg font-medium">{student?.name}</p>
@@ -109,12 +109,12 @@ export const MemberCard = ({ member }) => {
 
 export const DummyCard = () => {
   return (
-    <div className="flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow w-full sm:w-[80%] md:w-[45%] lg:w-[30%] xl:w-[20%] h-auto">
+    <div className="flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[250px] w-[300px]">
       <div className="flex flex-col gap-4 justify-center items-center w-full">
         <img
           src={dummy}
           alt="Member"
-          className="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover"
+          className="h-[120px] w-[120px] sm:h-24 sm:w-24 rounded-full object-cover"
         />
         <div className="text-center">
           <p className="text-base sm:text-lg font-medium">Member Name</p>

@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 import { notifyError, notifySuccess } from "../toast";
 import StickyButton from "../components/StickyButton";
 
-const Members = () => {
+const Council = () => {
   const [activeModal, setActiveModal] = useState(null);
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -103,4 +103,4 @@ const Members = () => {
   );
 };
 
-export default Members;
+export default Council;
