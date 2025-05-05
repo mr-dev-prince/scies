@@ -58,13 +58,13 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-[10vh] h-screen flex justify-center items-center p-2">
+    <div className="pt-[10vh] h-fit md:h-screen flex justify-center items-center p-2">
       <motion.form
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
-        className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:w-[30%] flex flex-col gap-3 p-4 border-2 border-black/50 rounded-md mt-12 md:mt-0"
+        className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:w-[30%] flex flex-col gap-3 p-4 border-2 border-black/50 rounded-md mt-4 md:mt-0"
       >
         <div className="flex justify-center items-center flex-col gap-4">
           <img src={Logo.logo} alt="logo" className="h-24" />

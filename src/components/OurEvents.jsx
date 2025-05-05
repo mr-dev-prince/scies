@@ -43,9 +43,13 @@ const OurEvents = () => {
     mutate(eventId);
   };
 
+  console.log("data--> ",data);
+
   const events = data?.events || [];
 
   const filteredEvents = events.filter((event) => event.type === selectedType);
+
+  console.log(filteredEvents);
 
   return (
     <div className="w-full h-fit px-4 md:px-8">

@@ -65,7 +65,7 @@ const Login = () => {
   };
 
   return (
-    <div className="pt-[10vh] h-screen flex justify-center items-center">
+    <div className="pt-[10vh] h-fit md:h-screen flex justify-center mt-4 items-center">
       <motion.form
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
