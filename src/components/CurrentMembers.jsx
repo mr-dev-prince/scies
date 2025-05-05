@@ -14,19 +14,23 @@ const CurrentMembers = () => {
     },
   });
 
-  const president = data?.find((member) => member.position === "President");
-
-  const vicePresident = data?.find(
-    (member) => member.position === "vice president"
+  const president = data?.find(
+    (member) => member.position.toLowerCase() === "president"
   );
 
-  const secretary = data?.find((member) => member.position === "secretary");
+  const vicePresident = data?.find(
+    (member) => member.position.toLowerCase() === "vice president"
+  );
+
+  const secretary = data?.find(
+    (member) => member.position.toLowerCase() === "secretary"
+  );
 
   const members = data?.filter(
     (member) =>
-      member.position !== "President" &&
-      member.position !== "vice president" &&
-      member.position !== "secretary"
+      member.position.toLowerCase() !== "president" &&
+      member.position.toLowerCase() !== "vice president" &&
+      member.position.toLowerCase() !== "secretary"
   );
 
   return (
