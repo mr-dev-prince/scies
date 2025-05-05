@@ -48,6 +48,10 @@ const Elections = () => {
 
   const handleNominationSubmit = (e) => {
     e.preventDefault();
+    if (!currentUser) {
+      notifyError("Please login to nominate yourself");
+      return;
+    }
     if (!selectedElection || !selectedPosition) {
       notifyError("Please select an election and position");
       return;
@@ -55,7 +59,7 @@ const Elections = () => {
     mutate({
       electionId: selectedElection,
       position: selectedPosition,
-      userId: currentUser._id,
+      userId: currentUser?._id,
     });
   };
 

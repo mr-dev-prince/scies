@@ -8,6 +8,9 @@ import { notifyError, notifySuccess } from "../toast";
 const Candidates = ({ role, members, electionId }) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
+
+  console.log("currentUser", currentUser);
+
   const { mutate } = useMutation({
     mutationFn: addVote,
     onSuccess: () => {
@@ -19,8 +22,12 @@ const Candidates = ({ role, members, electionId }) => {
   });
 
   const handleVote = (candidateId) => {
+    if (!currentUser) {
+      notifyError("Please login to vote");
+      return;
+    }
     const voteData = {
-      userId: currentUser._id,
+      userId: currentUser?._id,
       electionId,
       position: role,
       candidateId,

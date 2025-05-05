@@ -42,8 +42,8 @@ const CurrentMembers = () => {
         <div className="w-fit px-24 py-2">
           <div className="p-4 hide-scrollbar flex justify-center items-center gap-24 bg-gray-600/50 rounded-md">
             {president ? <MemberCard member={president} /> : <DummyCard />}
-            {vicePresident ? <MemberCard /> : <DummyCard />}
-            {secretary ? <MemberCard /> : <DummyCard />}
+            {vicePresident ? <MemberCard member={vicePresident} /> : <DummyCard />}
+            {secretary ? <MemberCard member={secretary} /> : <DummyCard />}
           </div>
           <div className="flex flex-wrap gap-5 justify-center items-center mt-12">
             {members?.length > 0 ? (
