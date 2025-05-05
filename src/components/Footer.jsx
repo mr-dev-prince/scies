@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { Logo } from "../constants/images";
 import { Link } from "react-router-dom";
 
@@ -33,7 +29,7 @@ const Footer = () => {
                 Events
               </Link>
               <Link
-                to={"/members"}
+                to={"/council"}
                 className="hover:text-red-700 cursor-pointer"
               >
                 Members
@@ -55,22 +51,40 @@ const Footer = () => {
           <div>
             <h2 className="text-lg font-semibold mb-4">Connect With Us</h2>
             <div className="flex space-x-4">
-              <FaFacebookF
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
-              <FaInstagram
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
-              <FaTwitter
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
-              <FaLinkedin
-                className="text-black hover:text-red-700 cursor-pointer"
-                size={20}
-              />
+              <Link to={"https://www.facebook.com/share/1EJdZungKA/"}>
+                <FaFacebookF
+                  className="text-black hover:text-red-700 cursor-pointer"
+                  size={20}
+                />
+              </Link>
+              <Link
+                to={
+                  "https://www.instagram.com/iesuniversity?igsh=MW12OWw2ZnRmZmx2Yw=="
+                }
+                target="_blank"
+              >
+                <FaInstagram
+                  className="text-black hover:text-red-700 cursor-pointer"
+                  size={20}
+                />
+              </Link>
+              <Link
+                to={"https://x.com/IESuniversity?t=B5XnWv8jN63g_-oLEtadBw&s=09"}
+                target="_blank"
+              >
+                <FaXTwitter
+                  className="text-black hover:text-red-700 cursor-pointer"
+                  size={20}
+                />
+              </Link>
+              <Link
+                to={"https://www.linkedin.com/school/ies-university-bhopal/"}
+              >
+                <FaLinkedin
+                  className="text-black hover:text-red-700 cursor-pointer"
+                  size={20}
+                />
+              </Link>
             </div>
           </div>
         </div>

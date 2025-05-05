@@ -11,7 +11,7 @@ import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard";
 import { ScrollToTop } from "./utils/helper";
 import Elections from "./pages/Elections";
-import Council from "./pages/Members";
+import Council from "./pages/Council";
 
 const App = () => {
   return (

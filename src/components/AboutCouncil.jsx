@@ -116,7 +116,7 @@ const AboutCouncil = () => {
         </motion.div>
         <motion.div variants={cardVariants} className="mt-10 text-center pb-8">
           <Link
-            to={"/members"}
+            to={"/council"}
             className="bg-white px-8 sm:px-10 py-2 sm:py-3 font-semibold rounded-md hover:bg-black hover:text-white transition duration-200"
           >
             More Members

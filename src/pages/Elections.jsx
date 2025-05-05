@@ -110,9 +110,12 @@ const Elections = () => {
   return (
     <>
       <div className="h-fit pt-[12vh] flex flex-col gap-10">
-        {data?.elections?.length > 0 && <Voting />}
+        {data?.elections?.length > 0 ? (
+          <Voting />
+        ) : (
+          <p>No elections available</p>
+        )}
       </div>
-
       {data?.elections?.length > 0 && (
         <div className="fixed top-[15%] right-0 flex flex-col gap-4 z-50 -translate-y-1/2">
           <StickyButton
