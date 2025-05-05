@@ -112,7 +112,7 @@ const Register = () => {
   };
 
   return (
-    <div className="pt-[10vh] h-screen flex justify-center items-center">
+    <div className="pt-[10vh] h-screen flex justify-center items-center mt-12 md:mt-0">
       <motion.form
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

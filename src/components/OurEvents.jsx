@@ -48,7 +48,7 @@ const OurEvents = () => {
   const filteredEvents = events.filter((event) => event.type === selectedType);
 
   return (
-    <div className="w-full h-fit">
+    <div className="w-full h-fit px-4 md:px-8">
       <div className="flex justify-center items-center">
         <EventFilter
           selected={selectedType}
@@ -62,7 +62,7 @@ const OurEvents = () => {
           No events
         </p>
       ) : (
-        <div className="mt-12">
+        <div className="mt-8 space-y-6">
           {filteredEvents.map((event, index) => (
             <EventCard
               key={index}
@@ -91,7 +91,7 @@ const EventCard = ({
   deleteEnabled,
 }) => {
   return (
-    <div className="bg-white/50 shadow-md rounded-md p-4 mb-4 flex h-[50vh] w-full gap-5 relative">
+    <div className="bg-white/50 shadow-md rounded-md p-4 mb-4 flex flex-col md:flex-row h-auto md:h-[50vh] w-full gap-4 relative">
       {deleteEnabled && (
         <button
           onClick={onDelete}
@@ -100,19 +100,19 @@ const EventCard = ({
           <MdDelete size={16} />
         </button>
       )}
-      <div className="h-full w-[50%]">
+      <div className="w-full md:w-[50%] h-48 md:h-full">
         <img
           src={src}
           alt=""
           className="h-full w-full object-cover rounded-md"
         />
       </div>
-      <div>
-        <h3 className="font-semibold cal-sans text-3xl tracking-wider">
+      <div className="flex flex-col justify-start w-full md:w-[50%]">
+        <h3 className="font-semibold cal-sans text-xl md:text-3xl tracking-wide">
           {title}
         </h3>
-        <p className="text-gray-600">{date}</p>
-        <p className="mt-2">{description}</p>
+        <p className="text-gray-600 text-sm md:text-base">{date}</p>
+        <p className="mt-2 text-sm md:text-base">{description}</p>
       </div>
     </div>
   );

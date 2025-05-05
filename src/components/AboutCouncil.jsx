@@ -52,17 +52,17 @@ const AboutCouncil = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={cardVariants}
-        className="py-12 px-6 text-center"
+        className="py-8 md:py-12 px-4 md:px-6 text-center"
       >
         <motion.h2
           variants={cardVariants}
-          className="text-4xl font-semibold mb-4 cal-sans tracking-wider"
+          className="text-3xl md:text-4xl font-semibold mb-4 cal-sans tracking-wider"
         >
           About the Council
         </motion.h2>
         <motion.p
           variants={cardVariants}
-          className="mx-auto text-gray-800 px-64 font-semibold mb-6"
+          className="mx-auto text-gray-800 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-64 font-semibold mb-6 text-sm sm:text-base"
         >
           The Student Council serves as the official voice of the student body,
           organizing events, resolving issues, and creating a vibrant college
@@ -73,7 +73,11 @@ const AboutCouncil = () => {
           variants={cardVariants}
           className="flex justify-center items-center"
         >
-          <img src={sc} alt="" className="h-[50vh] object-cover rounded-md" />
+          <img 
+            src={sc} 
+            alt="Student Council" 
+            className="h-[30vh] sm:h-[40vh] md:h-[50vh] w-full object-cover rounded-md max-w-2xl" 
+          />
         </motion.div>
       </motion.section>
       <motion.section
@@ -81,17 +85,17 @@ const AboutCouncil = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
-        className="px-6 mt-4"
+        className="px-4 md:px-6 mt-4"
       >
         <motion.h2
           variants={cardVariants}
-          className="text-3xl font-semibold text-center mb-6 cal-sans tracking-wider"
+          className="text-2xl md:text-3xl font-semibold text-center mb-4 md:mb-6 cal-sans tracking-wider"
         >
           Meet the Council Members
         </motion.h2>
         <motion.p
           variants={cardVariants}
-          className="text-center text-gray-800 mb-6 px-64 font-semibold"
+          className="text-center text-gray-800 mb-6 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-64 font-semibold text-sm sm:text-base"
         >
           Our council members are dedicated to serving the student body and
           enhancing the college experience. They are passionate about
@@ -100,7 +104,7 @@ const AboutCouncil = () => {
         </motion.p>
         <motion.div
           variants={containerVariants}
-          className="flex justify-center items-center gap-16"
+          className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 w-full"
         >
           {president ? <MemberCard member={president} /> : <DummyCard />}
           {vicePresident ? (
@@ -110,10 +114,10 @@ const AboutCouncil = () => {
           )}
           {secretary ? <MemberCard member={secretary} /> : <DummyCard />}
         </motion.div>
-        <motion.div variants={cardVariants} className="mt-10 text-center">
+        <motion.div variants={cardVariants} className="mt-10 text-center pb-8">
           <Link
             to={"/members"}
-            className="bg-white px-10 py-3 font-semibold rounded-md hover:bg-black hover:text-white transition duration-200"
+            className="bg-white px-8 sm:px-10 py-2 sm:py-3 font-semibold rounded-md hover:bg-black hover:text-white transition duration-200"
           >
             More Members
           </Link>

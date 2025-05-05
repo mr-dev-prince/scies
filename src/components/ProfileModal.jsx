@@ -130,8 +130,9 @@ const ProfileModal = ({ onClose }) => {
   const profileImage = editMode
     ? preview || currentUser.profileImg || dummy
     : currentUser.profileImg || dummy;
-    
-  const showDashboardButton = currentUser.role === "council" || currentUser.role === "admin";
+
+  const showDashboardButton =
+    currentUser.role === "council" || currentUser.role === "admin";
 
   return (
     <AnimatePresence>
@@ -143,7 +144,7 @@ const ProfileModal = ({ onClose }) => {
         exit="hidden"
       >
         <motion.div
-          className="bg-white rounded-md p-6 w-[35%] shadow-2xl relative border-2 border-black/50"
+          className="bg-white rounded-md p-4 sm:p-6 w-[90%] md:w-[60%] lg:w-[35%] shadow-2xl relative border-2 border-black/50 max-h-[90vh] overflow-y-auto"
           variants={modalVariants}
           initial="hidden"
           animate="visible"
@@ -155,13 +156,13 @@ const ProfileModal = ({ onClose }) => {
           >
             <VscEyeClosed />
           </button>
-          
-          <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">
+
+          <h2 className="text-xl sm:text-2xl font-bold text-center text-blue-700 mb-4 sm:mb-6">
             Profile
           </h2>
-          
-          <div className="flex items-center mt-4 gap-4">
-            <div className="w-fit h-full relative">
+
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="relative">
               <img
                 src={profileImage}
                 alt="Profile"
@@ -181,8 +182,8 @@ const ProfileModal = ({ onClose }) => {
                 <FaPenAlt className="scale-75" />
               </button>
             </div>
-            
-            <div className="space-y-2 text-gray-700 text-base w-[75%]">
+
+            <div className="space-y-2 text-gray-700 text-sm sm:text-base w-full md:w-[75%]">
               <Details label="Name" value={currentUser.name} />
               <Details label="Email" value={currentUser.email} />
               <Details label="Role" value={currentUser.role} />
@@ -198,14 +199,14 @@ const ProfileModal = ({ onClose }) => {
               {isPending ? <Loader /> : "Save Changes"}
             </button>
           ) : (
-            <div className="flex gap-4 mt-4">
+            <div className="flex flex-col sm:flex-row gap-3 mt-4">
               <button
                 onClick={handleLogout}
                 className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
               >
                 Log Out
               </button>
-              
+
               {showDashboardButton && (
                 <button
                   onClick={navigateToDashboard}

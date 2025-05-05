@@ -29,16 +29,17 @@ const FilterButton = ({ title, handleFilterClick, isSelected }) => {
       onClick={() => handleFilterClick(title)}
       className={`${
         isSelected ? "bg-red-700" : "bg-gray-800"
-      } px-12 text-white py-2 rounded-md hover:bg-red-700 duration-300 capitalize`}
+      } text-white py-2 px-4 sm:px-8 md:px-12 rounded-md hover:bg-red-700 transition duration-300 capitalize text-sm sm:text-base`}
     >
       {title}
     </button>
   );
 };
 
+
 const EventFilter = ({ handleFilterClick, selected }) => {
   return (
-    <div className="flex flex-wrap justify-center items-center bg-gray-500 p-2 rounded-md gap-4">
+    <div className="flex flex-wrap justify-center items-center bg-gray-500 p-2 sm:p-3 rounded-md gap-2 sm:gap-4 w-full max-w-full overflow-x-auto">
       {filter.map((item) => (
         <FilterButton
           key={item.id}
@@ -50,5 +51,6 @@ const EventFilter = ({ handleFilterClick, selected }) => {
     </div>
   );
 };
+
 
 export default EventFilter;
