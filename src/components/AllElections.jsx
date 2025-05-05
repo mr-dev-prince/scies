@@ -1,18 +1,34 @@
 import React from "react";
-import { getAllElections } from "../api";
-import { notifyError } from "../toast";
-import { useQuery } from "@tanstack/react-query";
+import { deleteElection, getAllElections } from "../api";
+import { notifyError, notifySuccess } from "../toast";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
 import { format } from "date-fns";
 
 const AllElections = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["elections"],
     queryFn: getAllElections,
     onError: (error) => {
       notifyError("Failed to fetch elections", error?.message);
     },
   });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteElection,
+    onSuccess: () => {
+      notifySuccess("Election deletion successful");
+      refetch();
+    },
+    onError: () => {
+      notifyError("Failed to delete election");
+    },
+  });
+
+  const handleDelete = (electionId) => {
+    if (isPending) return;
+    mutate(electionId);
+  };
 
   const elections = data?.elections || [];
 
@@ -25,7 +41,11 @@ const AllElections = () => {
       ) : (
         <div className="w-full space-y-4">
           {elections.map((election) => (
-            <ElectionCard key={election._id} election={election} />
+            <ElectionCard
+              key={election._id}
+              election={election}
+              handleDelete={handleDelete}
+            />
           ))}
         </div>
       )}
@@ -33,7 +53,7 @@ const AllElections = () => {
   );
 };
 
-const ElectionCard = ({ election }) => {
+const ElectionCard = ({ election, handleDelete }) => {
   return (
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center w-full gap-2 border bg-white p-3 rounded-md shadow-sm">
       <h3 className="text-base sm:text-lg font-semibold text-gray-800">
@@ -43,6 +63,7 @@ const ElectionCard = ({ election }) => {
         Election Date: {format(election.startDate, "dd/MM/yyyy")}
       </p>
       <button
+        onClick={() => handleDelete(election._id)}
         type="button"
         className="text-red-600 text-xl hover:text-red-800 self-start sm:self-center"
         title="Delete election"

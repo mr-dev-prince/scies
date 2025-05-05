@@ -20,9 +20,6 @@ const OurEvents = () => {
     queryFn: getEvents,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    refetchInterval: 1000 * 60 * 5,
-    retry: 1,
-    retryDelay: 1000,
     onError: () => {
       notifyError("Failed to fetch events.");
     },
@@ -42,8 +39,6 @@ const OurEvents = () => {
   const handleDelete = (eventId) => {
     mutate(eventId);
   };
-
-  console.log("data--> ",data);
 
   const events = data?.events || [];
 
