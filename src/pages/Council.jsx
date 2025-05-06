@@ -7,6 +7,7 @@ import { createMember } from "../api";
 import Loader from "../components/Loader";
 import { notifyError, notifySuccess } from "../toast";
 import StickyButton from "../components/StickyButton";
+import { POSITION_GROUPS } from "../constants/formData";
 
 const Council = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -59,15 +60,28 @@ const Council = () => {
         className="border p-2 rounded input-uppercase"
         required
       />
-      <input
-        type="text"
+
+      <select
         name="position"
         value={memberData.position}
         onChange={handleAddMemberInputChange}
-        placeholder="Position"
         className="border p-2 rounded"
         required
-      />
+      >
+        <option value="" disabled>
+          Select Position
+        </option>
+        {Object.entries(POSITION_GROUPS).map(([group, positions]) => (
+          <optgroup key={group} label={group}>
+            {positions.map((position) => (
+              <option key={position} value={position}>
+                {position}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
+
       <button
         type="submit"
         className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 h-10 flex justify-center items-center disabled:opacity-60"
@@ -84,7 +98,7 @@ const Council = () => {
         <CurrentMembers />
       </div>
       <div className="fixed top-[22%] right-0 flex flex-col gap-4 z-50 -translate-y-1/2">
-        {currentUser && currentUser?.role !== ("student") && (
+        {currentUser && currentUser?.role !== "student" && (
           <StickyButton
             title="Add Member"
             Icon={FaUserPlus}
