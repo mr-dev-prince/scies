@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Voting from "../components/Voting";
 import Modal from "../components/Modal";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -6,8 +6,16 @@ import Loader from "../components/Loader";
 import { notifyError, notifySuccess } from "../toast";
 import { HiDocumentAdd } from "react-icons/hi";
 import StickyButton from "../components/StickyButton";
-import { createNomination, getAllElections, getResults } from "../api";
-import { getElectionWinners } from "../utils/helper";
+import {
+  createNomination,
+  getAllElections,
+  getResults,
+  sendEmail,
+} from "../api";
+import {
+  getElectionWinners,
+  getWinnerEmailsPositionsAndElectionNames,
+} from "../utils/helper";
 import Vote from "../assets/Vote.jpg";
 import Winners from "../components/Winners";
 
@@ -33,7 +41,21 @@ const Elections = () => {
     },
   });
 
+  const { mutate: emailMutation } = useMutation({
+    mutationFn: sendEmail,
+    onSuccess: () => {
+      console.log("Email sent to winners.");
+    },
+    onError: (error) => {
+      notifyError(error.response?.data?.message || "Failed to send email.");
+    },
+  });
+
   const electionResult = getElectionWinners(results) || [];
+
+  const emailData = useMemo(() => {
+    return getWinnerEmailsPositionsAndElectionNames(results) || [];
+  }, [results]);
 
   const selectedElectionObj = useMemo(
     () => data?.elections?.find((e) => e._id === selectedElection),
@@ -119,6 +141,27 @@ const Elections = () => {
       </button>
     </form>
   );
+
+  useEffect(() => {
+    const sendAllEmails = async () => {
+      const alreadySent = sessionStorage.getItem("emailSent");
+      if (!alreadySent && emailData?.length > 0) {
+        await Promise.all(
+          emailData.map(({ email, position, electionName }) =>
+            emailMutation({
+              email,
+              subject: `Congratulations on winning the ${position} position in the ${electionName} election!`,
+              body: `Dear Winner,\n\nCongratulations on winning the ${position} position in the ${electionName} election! Your hard work and dedication have paid off, and we are proud to have you as a part of our team.\n\nBest regards,\nElection Committee`,
+            })
+          )
+        );
+
+        sessionStorage.setItem("emailSent", "true");
+      }
+    };
+
+    sendAllEmails();
+  }, [emailData, emailMutation]);
 
   return (
     <>

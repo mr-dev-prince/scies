@@ -14,10 +14,9 @@ export const ScrollToTop = () => {
 export const getElectionWinners = (electionsData) => {
   return electionsData?.map((election) => {
     const resultsWithWinners = election.results.map((result) => {
-      // Sort candidates by votes in descending order
-      const sortedCandidates = result.candidates.sort((a, b) => b.votes - a.votes);
-
-      // Get the winner (the candidate with the highest votes)
+      const sortedCandidates = result.candidates.sort(
+        (a, b) => b.votes - a.votes
+      );
       const winner = sortedCandidates[0];
 
       return {
@@ -49,3 +48,25 @@ export const getElectionWinners = (electionsData) => {
   });
 };
 
+export const getWinnerEmailsPositionsAndElectionNames = (electionsData) => {
+  const winners = [];
+
+  electionsData?.forEach((election) => {
+    election.results.forEach((result) => {
+      const sortedCandidates = result.candidates.sort(
+        (a, b) => b.votes - a.votes
+      );
+      const winner = sortedCandidates[0];
+
+      if (winner?.student?.email) {
+        winners.push({
+          email: winner.student.email,
+          position: result.position,
+          electionName: election.name,
+        });
+      }
+    });
+  });
+
+  return winners;
+};

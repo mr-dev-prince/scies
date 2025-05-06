@@ -78,6 +78,10 @@ export const createContact = (data) =>
 export const getContacts = () =>
   api.get("/contact/get-all").then((res) => res.data);
 
+// email apis
+export const sendEmail = (data) =>
+  api.post("/email/send", data).then((res) => res.data);
+
 // upload image
 export const uploadImage = (data) =>
   api.post("/upload", data, {
