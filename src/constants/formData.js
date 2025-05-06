@@ -8,7 +8,6 @@ export const POSITION_GROUPS = {
   Discipline: [
     "Discipline Secretary",
     "Discipline Vice Secretary",
-    "Discipline Cultural Coordinator",
     "Discipline Coordinator",
   ],
   "Women Cell": [
