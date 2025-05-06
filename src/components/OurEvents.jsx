@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EventFilter from "./EventFilter";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteEvent, getEvents } from "../api";
-import { format } from "date-fns";
+import { format, isAfter } from "date-fns";
 import Loader from "./Loader";
 import { notifyError, notifySuccess } from "../toast";
 import { MdDelete } from "react-icons/md";
@@ -41,40 +41,76 @@ const OurEvents = () => {
   };
 
   const events = data?.events || [];
+  const now = new Date();
 
-  const filteredEvents = events.filter((event) => event.type === selectedType);
+  const upcomingEvents = events.filter((event) =>
+    isAfter(new Date(event.date), now)
+  );
 
-  console.log(filteredEvents);
+  const filteredEvents = events.filter(
+    (event) =>
+      event.type === selectedType && !isAfter(new Date(event.date), now)
+  );
 
   return (
     <div className="w-full h-fit px-4 md:px-8">
-      <div className="flex justify-center items-center">
+      {isLoading ? (
+        <Loader />
+      ) : (
+        upcomingEvents.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-2xl md:text-3xl font-semibold text-center text-blue-600 mb-4">
+              Upcoming Events
+            </h2>
+            <div className="space-y-6">
+              {upcomingEvents.map((event, index) => (
+                <EventCard
+                  key={index}
+                  title={event.title}
+                  date={format(new Date(event.date), "dd MMMM yyyy")}
+                  description={event.description}
+                  src={event.imageUrl}
+                  onDelete={() => handleDelete(event._id)}
+                  deleteEnabled={
+                    currentUser?.role === "admin" ||
+                    currentUser?.role === "council"
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        )
+      )}
+      <div className="flex justify-center items-center mt-10">
         <EventFilter
           selected={selectedType}
           handleFilterClick={handleFilterClick}
         />
       </div>
-      {isLoading ? (
-        <Loader />
-      ) : filteredEvents.length === 0 ? (
-        <p className="text-center mt-8 text-gray-600 font-medium text-lg">
-          No events
-        </p>
-      ) : (
-        <div className="mt-8 space-y-6">
-          {filteredEvents.map((event, index) => (
-            <EventCard
-              key={index}
-              title={event.title}
-              date={format(new Date(event.date), "dd MMMM yyyy")}
-              description={event.description}
-              src={event.imageUrl}
-              onDelete={() => handleDelete(event._id)}
-              deleteEnabled={
-                currentUser?.role === "admin" || currentUser?.role === "council"
-              }
-            />
-          ))}
+      {!isLoading && (
+        <div className="mt-4">
+          {filteredEvents.length === 0 ? (
+            <p className="text-center mt-8 text-gray-600 font-medium text-lg">
+              No events
+            </p>
+          ) : (
+            <div className="space-y-6">
+              {filteredEvents.map((event, index) => (
+                <EventCard
+                  key={index}
+                  title={event.title}
+                  date={format(new Date(event.date), "dd MMMM yyyy")}
+                  description={event.description}
+                  src={event.imageUrl}
+                  onDelete={() => handleDelete(event._id)}
+                  deleteEnabled={
+                    currentUser?.role === "admin" ||
+                    currentUser?.role === "council"
+                  }
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

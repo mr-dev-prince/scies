@@ -35,7 +35,9 @@ const Voting = () => {
         return (
           <div key={election._id} className="w-full mb-6">
             <div className="h-[10vh] w-full flex flex-col sm:flex-row justify-center  md:justify-between px-4 sm:px-12 items-center bg-gradient-to-l from-white via-sky-200 to-sky-600 shadow-md rounded-md">
-              <p className="cal-sans text-2xl sm:text-4xl tracking-wide text-black md:text-white text-center sm:text-left">{election.name}</p>
+              <p className="cal-sans text-2xl sm:text-4xl tracking-wide text-black md:text-white text-center sm:text-left">
+                {election.name}
+              </p>
               <p className="cal-sans text-lg sm:text-2xl tracking-wider text-black text-center sm:text-left">
                 Election Date: {format(election.startDate, "dd MMMM yyyy")}
               </p>
@@ -47,14 +49,16 @@ const Voting = () => {
                 </div>
                 <div className="p-4 overflow-y-auto h-[calc(75vh-48px)] sm:h-[calc(75vh-48px)] hide-scrollbar flex flex-col gap-4">
                   {hasNominations ? (
-                    Object.entries(groupedCandidates).map(([role, members]) => (
-                      <Candidates
-                        key={role}
-                        role={role}
-                        members={members}
-                        electionId={election._id}
-                      />
-                    ))
+                    Object.entries(groupedCandidates).map(
+                      ([role, members], index) => (
+                        <Candidates
+                          key={index}
+                          role={role}
+                          members={members}
+                          electionId={election._id}
+                        />
+                      )
+                    )
                   ) : (
                     <p className="text-white text-lg text-center mt-10">
                       No candidates have been nominated yet.
@@ -68,13 +72,15 @@ const Voting = () => {
                 </div>
                 <div className="p-4 overflow-y-auto h-[calc(75vh-48px)] sm:h-[calc(75vh-48px)] hide-scrollbar flex flex-col gap-4">
                   {hasNominations ? (
-                    Object.entries(groupedCandidates).map(([role, members]) => (
-                      <LeaderBoardCandidates
-                        key={role}
-                        role={role}
-                        members={members}
-                      />
-                    ))
+                    Object.entries(groupedCandidates).map(
+                      ([role, members], index) => (
+                        <LeaderBoardCandidates
+                          key={index}
+                          role={role}
+                          members={members}
+                        />
+                      )
+                    )
                   ) : (
                     <p className="text-white text-lg text-center mt-10">
                       Leaderboard is empty. No votes have been cast.

@@ -56,44 +56,56 @@ const sectionVariants = {
 };
 
 const Dashboard = () => {
-  const [activeSection, setActiveSection] = useState("nomination");
+  const [activeSection, setActiveSection] = useState("");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const toggleSection = (section) => {
     setActiveSection((prev) => (prev === section ? null : section));
   };
 
-  const sections = [
+  const allSections = [
     {
       key: "nomination",
       title: "Nomination Requests",
       component: <NominationRequests />,
+      roles: ["admin"],
     },
     {
       key: "verification",
       title: "User Approval",
       component: <UserVerifications />,
+      roles: ["admin"],
     },
     {
       key: "memberApproval",
       title: "Member Approval : Council",
       component: <MemberVerification />,
+      roles: ["admin", "council"],
     },
     {
       key: "election",
       title: "Organize Election",
       component: <OrganizeElection />,
+      roles: ["admin", "council"],
     },
     {
       key: "contact",
       title: "Contact Requests",
       component: <AllContacts />,
+      roles: ["admin", "council"],
     },
     {
       key: "electionlist",
       title: "Election List",
       component: <AllElections />,
+      roles: ["admin", "council"],
     },
   ];
+
+  // Filter based on user role
+  const accessibleSections = allSections.filter((section) =>
+    section.roles.includes(user?.role)
+  );
 
   return (
     <div className="min-h-screen p-6 pt-[12vh]">
@@ -101,7 +113,7 @@ const Dashboard = () => {
         Admin Dashboard
       </h1>
       <div className="space-y-6">
-        {sections.map((section) => (
+        {accessibleSections.map((section) => (
           <div key={section.key}>
             <SectionButton
               title={section.title}

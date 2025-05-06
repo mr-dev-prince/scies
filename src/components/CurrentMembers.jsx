@@ -1,8 +1,43 @@
 import React from "react";
-import dummy from "../assets/dummy.jpeg";
 import { useQuery } from "@tanstack/react-query";
 import { getMembers } from "../api";
 import { notifyError } from "../toast";
+import MemberCard from "./MemberCard";
+import { motion } from "framer-motion";
+
+const POSITION_GROUPS = {
+  Core: ["President", "Vice President", "Representative"],
+  Cultural: [
+    "Cultural Secretary",
+    "Cultural Vice Secretary",
+    "Cultural Coordinator",
+  ],
+  Discipline: [
+    "Discipline Secretary",
+    "Discipline Vice Secretary",
+    "Discipline Cultural Coordinator",
+    "Discipline Coordinator",
+  ],
+  "Women Cell": [
+    "Women Cell Secretary",
+    "Women Cell Vice Secretary",
+    "Women Cell Coordinator",
+  ],
+  Treasury: [
+    "Treasury Secretary",
+    "Treasury Vice Secretary",
+    "Treasury Coordinator",
+  ],
+  Media: ["Media Secretary", "Media Vice Secretary", "Media Coordinator"],
+  Sport: ["Sport Secretary", "Sport Vice Secretary", "Sport Coordinator"],
+  "Event Management": [
+    "Event Management Secretary",
+    "Event Management Vice Secretary",
+    "Event Management Coordinator",
+  ],
+};
+
+const normalize = (str) => str?.trim().toLowerCase();
 
 const CurrentMembers = () => {
   const { data } = useQuery({
@@ -14,114 +49,69 @@ const CurrentMembers = () => {
     },
   });
 
-  const president = data?.find(
-    (member) => member.position.toLowerCase() === "president"
-  );
+  const positionToGroup = {};
+  for (const [group, positions] of Object.entries(POSITION_GROUPS)) {
+    positions.forEach((pos) => {
+      positionToGroup[normalize(pos)] = group;
+    });
+  }
 
-  const vicePresident = data?.find(
-    (member) => member.position.toLowerCase() === "vice president"
-  );
-
-  const secretary = data?.find(
-    (member) => member.position.toLowerCase() === "secretary"
-  );
-
-  const members = data?.filter(
-    (member) =>
-      member.position.toLowerCase() !== "president" &&
-      member.position.toLowerCase() !== "vice president" &&
-      member.position.toLowerCase() !== "secretary"
-  );
+  const groupedMembers = {};
+  data?.forEach((member) => {
+    const group = positionToGroup[normalize(member.position)];
+    if (!group) return;
+    if (!groupedMembers[group]) groupedMembers[group] = [];
+    groupedMembers[group].push(member);
+  });
 
   return (
     <>
-      <div className="h-[10vh] flex justify-center items-center mt-5">
-        <p className="cal-sans text-3xl md:text-5xl tracking-wider">
-          Current Members
-        </p>
-      </div>
-      <div className="w-full h-fit flex justify-center items-center gap-4 px-4 sm:px-10">
-        <div className="w-full sm:w-fit px-4 sm:px-24 py-2">
-          <div className="p-4 hide-scrollbar flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-24 bg-gray-600/50 rounded-md">
-            {president ? <MemberCard member={president} /> : <DummyCard />}
-            {vicePresident ? (
-              <MemberCard member={vicePresident} />
-            ) : (
-              <DummyCard />
-            )}
-            {secretary ? <MemberCard member={secretary} /> : <DummyCard />}
-          </div>
-          <div className="flex flex-wrap gap-5 justify-center items-center mt-12">
-            {members?.length > 0 ? (
-              members.map((member) => (
-                <MemberCard2 key={member._id} member={member} />
-              ))
-            ) : (
-              <p className="text-white bg-black px-10 py-2 rounded-md font-semibold text-lg text-center mt-10">
-                No members have been added yet.
-              </p>
-            )}
-          </div>
-        </div>
+      <motion.div
+        className="text-center px-6 sm:px-16 h-screen flex justify-center items-center flex-col gap-4"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <h1 className="text-4xl uppercase tracking-wider md:text-6xl font-bold cal-sans bg-gradient-to-r from-cyan-500 via-indigo-900 to-cyan-500 text-transparent bg-clip-text">
+          The Council
+        </h1>
+        <motion.p
+          className="text-lg sm:text-xl mt-4 max-w-3xl mx-auto tracking-wide font-semibold"
+          initial={{ y: 10 }}
+          animate={{ y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          Meet the vibrant minds and dedicated leaders of our Student Council —
+          a diverse collective working across disciplines to enrich campus life,
+          foster creativity, and ensure every voice is heard.
+        </motion.p>
+      </motion.div>
+      <div className="w-full flex flex-col gap-14 px-6 sm:px-16 py-10">
+        {Object.entries(POSITION_GROUPS).map(([group]) => {
+          const members = groupedMembers[group];
+          if (!members || members.length === 0) return null;
+
+          return (
+            <motion.div
+              key={group}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 text-white bg-gradient-to-r from-cyan-500 via-indigo-900 to-cyan-500 py-3 rounded-md shadow-md">
+                {group}
+              </h2>
+              <div className="flex flex-wrap gap-5 justify-center bg-gray-700/40 py-4 rounded-md">
+                {members.map((member) => (
+                  <MemberCard key={member._id} member={member} />
+                ))}
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </>
-  );
-};
-
-export const MemberCard2 = ({ member }) => {
-  return (
-    <div
-      className={`flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[250px] w-[300px]`}
-    >
-      <div className="flex flex-col gap-4 justify-center items-center w-full">
-        <img
-          src={dummy}
-          alt="Member Name"
-          className="h-[120px] w-[120px] rounded-full object-cover"
-        />
-        <div>
-          <p className="text-lg font-medium">{member.name}</p>
-          <p className="text-sm text-gray-500">{member.position}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const MemberCard = ({ member }) => {
-  const { student } = member || {};
-  return (
-    <div className="flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[250px] w-[300px]">
-      <div className="flex flex-col gap-4 justify-center items-center w-full">
-        <img
-          src={student?.profileImg || dummy}
-          alt="Member"
-          className="h-[120px] w-[120px] rounded-full object-cover"
-        />
-        <div className="text-center">
-          <p className="text-base sm:text-lg font-medium">{student?.name}</p>
-          <p className="text-sm text-gray-500">{member?.position}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const DummyCard = () => {
-  return (
-    <div className="flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[250px] w-[300px]">
-      <div className="flex flex-col gap-4 justify-center items-center w-full">
-        <img
-          src={dummy}
-          alt="Member"
-          className="h-[120px] w-[120px] sm:h-24 sm:w-24 rounded-full object-cover"
-        />
-        <div className="text-center">
-          <p className="text-base sm:text-lg font-medium">Member Name</p>
-          <p className="text-sm text-gray-500">Member Designation</p>
-        </div>
-      </div>
-    </div>
   );
 };
 

@@ -80,11 +80,11 @@ const Council = () => {
 
   return (
     <>
-      <div className="h-fit min-h-screen pt-[12vh] flex flex-col gap-10">
+      <div className="h-fit min-h-screen flex flex-col gap-10">
         <CurrentMembers />
       </div>
       <div className="fixed top-[22%] right-0 flex flex-col gap-4 z-50 -translate-y-1/2">
-        {currentUser && currentUser?.role !== ("admin" || "faculty") && (
+        {currentUser && currentUser?.role !== ("student") && (
           <StickyButton
             title="Add Member"
             Icon={FaUserPlus}

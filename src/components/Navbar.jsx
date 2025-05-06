@@ -149,7 +149,9 @@ const Navbar = () => {
                     className="h-10 w-10 rounded-full object-cover"
                   />
                 ) : (
-                  user.email?.charAt(0).toUpperCase() || "U"
+                  <p className="bg-gray-600/50 h-8 w-8 flex justify-center items-center rounded-full">
+                    {user.email?.charAt(0).toUpperCase() || "U"}
+                  </p>
                 )}
               </div>
               <p className="text-xl font-semibold">{user.name}</p>

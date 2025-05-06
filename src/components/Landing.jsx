@@ -1,10 +1,18 @@
 import React from "react";
 import { motion } from "framer-motion";
+import council from "../assets/council.jpeg";
 
 const Landing = () => {
   return (
-    <div className="h-screen pt-[10vh] cal-sans">
-      <div className="h-full w-full flex justify-center items-center flex-col px-4 text-center">
+    <div
+      className="h-screen pt-[10vh] cal-sans bg-cover bg-center bg-no-repeat relative"
+      style={{
+        backgroundImage: `url(${council})`,
+      }}
+    >
+      <div className="absolute inset-0 bg-black/60 z-0" />
+
+      <div className="h-full w-full flex justify-center items-center flex-col px-4 text-center relative z-10 text-white">
         <motion.h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-9xl tracking-wider font-bold"
           initial={{ y: 100, opacity: 0 }}

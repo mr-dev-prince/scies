@@ -5,7 +5,8 @@ import sc from "../assets/sc.jpeg";
 import { useQuery } from "@tanstack/react-query";
 import { getMembers } from "../api";
 import { notifyError } from "../toast";
-import { DummyCard, MemberCard } from "./CurrentMembers";
+import MemberCard from "./MemberCard";
+import DummyCard from "./DummyCard";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -73,10 +74,10 @@ const AboutCouncil = () => {
           variants={cardVariants}
           className="flex justify-center items-center"
         >
-          <img 
-            src={sc} 
-            alt="Student Council" 
-            className="h-[30vh] sm:h-[40vh] md:h-[50vh] w-full object-cover rounded-md max-w-2xl" 
+          <img
+            src={sc}
+            alt="Student Council"
+            className="h-[30vh] sm:h-[40vh] md:h-[50vh] w-full object-cover rounded-md max-w-2xl"
           />
         </motion.div>
       </motion.section>

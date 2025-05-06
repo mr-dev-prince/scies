@@ -37,6 +37,8 @@ export const deleteElection = (electionId) =>
   api.delete(`/election/delete/${electionId}`).then((res) => res.data);
 export const getAllElections = () =>
   api.get("/election/get-all").then((res) => res.data);
+export const getResults = () =>
+  api.get("/election/get-results").then((res) => res.data);
 
 // nomination apis
 export const createNomination = (data) =>

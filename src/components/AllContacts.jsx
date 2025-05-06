@@ -17,7 +17,7 @@ const AllContacts = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-full max-w-md">
+        <div className="w-full">
           {data?.map((contact) => (
             <ContactCard key={contact._id} contact={contact} />
           ))}

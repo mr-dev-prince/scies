@@ -6,7 +6,10 @@ import Loader from "../components/Loader";
 import { notifyError, notifySuccess } from "../toast";
 import { HiDocumentAdd } from "react-icons/hi";
 import StickyButton from "../components/StickyButton";
-import { createNomination, getAllElections } from "../api";
+import { createNomination, getAllElections, getResults } from "../api";
+import { getElectionWinners } from "../utils/helper";
+import Vote from "../assets/Vote.jpg";
+import Winners from "../components/Winners";
 
 const Elections = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -21,6 +24,16 @@ const Elections = () => {
     refetchOnWindowFocus: true,
     refetchOnMount: false,
   });
+
+  const { data: results } = useQuery({
+    queryKey: ["results"],
+    queryFn: getResults,
+    onError: (error) => {
+      notifyError(error.response?.data?.message || "Failed to fetch results.");
+    },
+  });
+
+  const electionResult = getElectionWinners(results) || [];
 
   const selectedElectionObj = useMemo(
     () => data?.elections?.find((e) => e._id === selectedElection),
@@ -109,17 +122,30 @@ const Elections = () => {
 
   return (
     <>
-      <div className="h-fit pt-[12vh] flex flex-col gap-10">
-        {data?.elections?.length > 0 ? (
-          <Voting />
-        ) : (
-          <div className="flex flex-col justify-center items-center h-screen">
-            <p className="font-semibold text-3xl">
-              No ongoing elections available
-            </p>
+      {data?.elections?.length > 0 && electionResult.length > 0 ? (
+        <>
+          <div className="h-fit pt-[12vh] flex flex-col gap-10">
+            <Voting />
           </div>
-        )}
-      </div>
+          <div className="px-12">
+            <div>
+              <div className="h-[10vh] w-full flex flex-col sm:flex-row justify-center md:justify-between px-4 sm:px-12 items-center bg-gradient-to-l from-white via-sky-200 to-orange-600 shadow-md rounded-md">
+                <p className="cal-sans text-4xl tracking-wider text-white">
+                  Results
+                </p>
+              </div>
+              <Winners electionResult={electionResult} />
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="pt-[12vh] flex flex-col justify-center items-center text-xl text-gray-500 gap-8 h-screen md:h-fit px-4">
+          <p className="text-3xl font-semibold cal-sans tracking-wider mt-5 text-center">
+            No Ongoing Elections Available
+          </p>
+          <img src={Vote} alt="" className="rounded-md" />
+        </div>
+      )}
       {data?.elections?.length > 0 && (
         <div className="fixed top-[15%] right-0 flex flex-col gap-4 z-50 -translate-y-1/2">
           <StickyButton
