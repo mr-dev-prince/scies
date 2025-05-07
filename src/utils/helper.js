@@ -12,33 +12,37 @@ export const ScrollToTop = () => {
 };
 
 export const getElectionWinners = (electionsData) => {
-  return electionsData?.map((election) => {
-    const resultsWithWinners = election?.results?.map((result) => {
-      const sortedCandidates = [...(result?.candidates || [])].sort(
-        (a, b) => b.votes - a.votes
-      );
+  if (!Array.isArray(electionsData) || electionsData.length === 0) return [];
 
-      const winner = sortedCandidates[0];
+  const filtered = electionsData.map((election) => {
+    const resultsWithWinners = (election?.results || [])
+      .map((result) => {
+        const sortedCandidates = [...(result?.candidates || [])].sort(
+          (a, b) => b.votes - a.votes
+        );
+        const winner = sortedCandidates[0];
 
-      return {
-        position: result?.position,
-        winner:
-          winner && winner.student
-            ? {
-                _id: winner._id,
-                userId: winner.userId,
-                votes: winner.votes,
-                student: {
-                  _id: winner.student._id,
-                  name: winner.student.name,
-                  email: winner.student.email,
-                  enrollmentNumber: winner.student.enrollmentNumber,
-                  profileImg: winner.student.profileImg,
-                },
-              }
-            : null,
-      };
-    });
+        if (!winner || !winner.student) return null;
+
+        return {
+          position: result?.position ?? null,
+          winner: {
+            _id: winner._id,
+            userId: winner.userId,
+            votes: winner.votes,
+            student: {
+              _id: winner.student._id,
+              name: winner.student.name,
+              email: winner.student.email,
+              enrollmentNumber: winner.student.enrollmentNumber,
+              profileImg: winner.student.profileImg,
+            },
+          },
+        };
+      })
+      .filter((r) => r !== null); 
+
+    if (resultsWithWinners.length === 0) return null;
 
     return {
       electionId: election?.electionId,
@@ -50,7 +54,11 @@ export const getElectionWinners = (electionsData) => {
       resultsWithWinners,
     };
   });
+
+  const validResults = filtered.filter((e) => e !== null);
+  return validResults.length > 0 ? validResults : [];
 };
+
 
 export const getWinnerEmailsPositionsAndElectionNames = (electionsData) => {
   const winners = [];
