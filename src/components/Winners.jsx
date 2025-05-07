@@ -2,9 +2,14 @@ import React from "react";
 import dummy from "../assets/dummy.jpeg";
 
 const Winners = ({ electionResult }) => {
+  
+  if (electionResult.length < 1) {
+    return null;
+  }
+
   return (
     <div>
-      {electionResult.map((election) => (
+      {electionResult?.map((election) => (
         <div key={election.electionId} className="w-full mb-6 mt-4">
           <div className="h-[10vh] w-full flex flex-col sm:flex-row justify-center  md:justify-between px-4 sm:px-12 items-center bg-gradient-to-l from-white via-sky-200 to-sky-600 shadow-md rounded-md">
             <p className="cal-sans text-2xl sm:text-4xl tracking-wide text-black md:text-white text-center sm:text-left">
