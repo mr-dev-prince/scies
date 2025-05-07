@@ -35,11 +35,11 @@ const Winners = ({ electionResult }) => {
                         {result.position}
                       </h3>
                       <div className="border-2 relative rounded-md w-[200px] h-[250px] flex flex-col items-center justify-center mt-2 bg-gray-300/20">
-                        <div className="py-2 flex justify-center items-center h-[50%]">
+                        <div className="flex justify-center items-center h-[100px] w-[100px]">
                           <img
                             src={result?.winner?.student?.profileImg || dummy}
                             alt=""
-                            className="h-full rounded-full"
+                            className="h-full w-full rounded-full object-cover"
                           />
                         </div>
                         <div className="mt-2 flex flex-col gap-1 items-center text-white ">
