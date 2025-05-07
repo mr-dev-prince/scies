@@ -24,7 +24,6 @@ const CouncilInitiative = () => {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
       variants={containerVariants}
       className="py-16 px-4 sm:px-6 text-center"
     >

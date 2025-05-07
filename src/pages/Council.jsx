@@ -98,7 +98,7 @@ const Council = () => {
         <CurrentMembers />
       </div>
       <div className="fixed top-[22%] right-0 flex flex-col gap-4 z-50 -translate-y-1/2">
-        {currentUser && currentUser?.role !== "student" && (
+        {currentUser && (
           <StickyButton
             title="Add Member"
             Icon={FaUserPlus}

@@ -59,9 +59,12 @@ const OurEvents = () => {
       ) : (
         upcomingEvents.length > 0 && (
           <div className="mt-10">
-            <h2 className="text-2xl md:text-3xl font-semibold text-center text-blue-600 mb-4">
-              Upcoming Events
-            </h2>
+            <div className="mb-4 bg-gradient-to-l from-sky-500 via-blue-800 to-sky-500 py-2 rounded-md flex justify-center items-center">
+              <h2 className="text-2xl md:text-3xl text-white font-semibold text-center cal-sans tracking-wider">
+                Upcoming Events
+              </h2>
+            </div>
+
             <div className="space-y-6">
               {upcomingEvents.map((event, index) => (
                 <EventCard
@@ -143,7 +146,7 @@ const EventCard = ({
         />
       </div>
       <div className="flex flex-col justify-start w-full md:w-[50%]">
-        <h3 className="font-semibold cal-sans text-xl md:text-3xl tracking-wide">
+        <h3 className="font-semibold cal-sans text-xl md:text-3xl tracking-wide capitalize">
           {title}
         </h3>
         <p className="text-gray-600 text-sm md:text-base">{date}</p>

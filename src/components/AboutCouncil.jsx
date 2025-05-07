@@ -42,8 +42,8 @@ const AboutCouncil = () => {
     (member) => member.position.toLowerCase() === "vice president"
   );
 
-  const secretary = data?.find(
-    (member) => member.position.toLowerCase() === "secretary"
+  const representative = data?.find(
+    (member) => member.position.toLowerCase() === "representative"
   );
 
   return (
@@ -107,13 +107,13 @@ const AboutCouncil = () => {
           variants={containerVariants}
           className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 w-full"
         >
-          {president ? <MemberCard member={president} /> : <DummyCard />}
+          {president ? <MemberCard member={president} /> : <DummyCard position={"President"} />}
           {vicePresident ? (
             <MemberCard member={vicePresident} />
           ) : (
-            <DummyCard />
+            <DummyCard position={"Vice President"} />
           )}
-          {secretary ? <MemberCard member={secretary} /> : <DummyCard />}
+          {representative ? <MemberCard member={representative} /> : <DummyCard position={"Representative"} />}
         </motion.div>
         <motion.div variants={cardVariants} className="mt-10 text-center pb-8">
           <Link

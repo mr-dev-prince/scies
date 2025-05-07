@@ -28,7 +28,7 @@ const Event = () => {
       <div className="px-4 sm:px-6 md:px-8 mt-2 w-full">
         <OurEvents />
       </div>
-      {currentUser?.role !== "student" && (
+      {currentUser && currentUser?.role !== "student" && (
         <AddEventButton onClick={() => setShowModal(true)} />
       )}
       {showModal && <AddEventModal onClose={() => setShowModal(false)} />}

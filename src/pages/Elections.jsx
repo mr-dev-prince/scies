@@ -165,31 +165,28 @@ const Elections = () => {
 
   return (
     <>
-      {data?.elections?.length > 0 && electionResult.length > 0 ? (
-        <>
-          <div className="h-fit pt-[12vh] flex flex-col gap-10">
-            <Voting />
-          </div>
+      <div className="pt-[12vh] flex flex-col gap-10">
+        {data?.elections?.length > 0 && <Voting />}
+        {electionResult.length > 0 && (
           <div className="px-12">
-            <div>
-              <div className="h-[10vh] w-full flex flex-col sm:flex-row justify-center md:justify-between px-4 sm:px-12 items-center bg-gradient-to-l from-white via-sky-200 to-orange-600 shadow-md rounded-md">
-                <p className="cal-sans text-4xl tracking-wider text-white">
-                  Results
-                </p>
-              </div>
-              <Winners electionResult={electionResult} />
+            <div className="h-[10vh] w-full flex flex-col sm:flex-row justify-center md:justify-between px-4 sm:px-12 items-center bg-gradient-to-l from-white via-sky-200 to-orange-600 shadow-md rounded-md">
+              <p className="cal-sans text-4xl tracking-wider text-white">
+                Results
+              </p>
             </div>
+            <Winners electionResult={electionResult} />
           </div>
-        </>
-      ) : (
-        <div className="pt-[12vh] flex flex-col justify-center items-center text-xl text-gray-500 gap-8 h-screen md:h-fit px-4">
-          <p className="text-3xl font-semibold cal-sans tracking-wider mt-5 text-center">
-            No Ongoing Elections Available
-          </p>
-          <img src={Vote} alt="" className="rounded-md" />
-        </div>
-      )}
-      {data?.elections?.length > 0 && (
+        )}
+        {data?.elections?.length === 0 && electionResult.length === 0 && (
+          <div className="flex flex-col justify-center items-center text-xl text-gray-500 gap-8 h-screen md:h-fit px-4">
+            <p className="text-3xl font-semibold cal-sans tracking-wider mt-5 text-center">
+              No Ongoing Elections Available
+            </p>
+            <img src={Vote} alt="No Elections" className="rounded-md" />
+          </div>
+        )}
+      </div>
+      {currentUser && data?.elections?.length > 0 && (
         <div className="fixed top-[15%] right-0 flex flex-col gap-4 z-50 -translate-y-1/2">
           <StickyButton
             title="Nominations"

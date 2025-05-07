@@ -1,6 +1,6 @@
 import dummy from "../assets/dummy.jpeg";
 
-const DummyCard = () => {
+const DummyCard = ({position}) => {
   return (
     <div className="flex items-center justify-between gap-4 p-4 bg-gray-100 rounded-md shadow h-[250px] w-[250px]">
       <div className="flex flex-col gap-4 justify-center items-center w-full">
@@ -13,7 +13,7 @@ const DummyCard = () => {
           <p className="text-base sm:text-lg font-medium capitalize">
             Member Name
           </p>
-          <p className="text-sm text-gray-500">Member Designation</p>
+          <p className="text-sm text-gray-500">{position}</p>
         </div>
       </div>
     </div>
