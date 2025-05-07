@@ -21,6 +21,8 @@ export const getUnverifiedUsers = () =>
   api.get("/user/unverified").then((res) => res.data);
 export const verifyUser = (userId) =>
   api.post(`/user/verify/${userId}`).then((res) => res.data);
+export const deleteUser = (userId) =>
+  api.delete(`/user/delete/${userId}`).then((res) => res.data);
 
 // event apis
 export const createEvent = (data) =>
@@ -77,6 +79,12 @@ export const createContact = (data) =>
   api.post("/contact/create", data).then((res) => res.data);
 export const getContacts = () =>
   api.get("/contact/get-all").then((res) => res.data);
+export const deleteContact = (contactId) =>
+  api.delete(`/contact/delete/${contactId}`).then((res) => res.data);
+export const resolveContact = (contactId) =>
+  api.put(`/contact/resolve/${contactId}`).then((res) => res.data);
+export const rejectContact = (contactId) =>
+  api.put(`/contact/reject/${contactId}`).then((res) => res.data);
 
 // email apis
 export const sendEmail = (data) =>

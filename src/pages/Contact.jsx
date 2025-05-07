@@ -4,6 +4,7 @@ import { Logo } from "../constants/images";
 import { createContact } from "../api";
 import { useMutation } from "@tanstack/react-query";
 import { notifyError, notifySuccess } from "../toast";
+import Loader from "../components/Loader";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -139,9 +140,9 @@ const Contact = () => {
           onClick={handleSubmit}
           disabled={isLoading}
           type="submit"
-          className="w-full py-1 bg-blue-700 rounded-md text-white"
+          className="w-full py-1 bg-blue-700 rounded-md text-white h-10 flex justify-center items-center"
         >
-          Submit
+          {isLoading ? <Loader /> : "Send"}
         </button>
       </motion.form>
     </div>

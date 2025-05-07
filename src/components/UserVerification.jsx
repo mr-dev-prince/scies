@@ -1,7 +1,8 @@
 import React from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getUnverifiedUsers, verifyUser } from "../api";
+import { deleteUser, getUnverifiedUsers, verifyUser } from "../api";
 import { notifyError, notifySuccess } from "../toast";
+import Loader from "./Loader";
 
 const UserVerifications = () => {
   const { data, isLoading, refetch } = useQuery({
@@ -12,7 +13,7 @@ const UserVerifications = () => {
     onError: () => notifyError("Failed to fetch unverified users."),
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending: verifying } = useMutation({
     mutationFn: verifyUser,
     onSuccess: () => {
       notifySuccess("User verified.");
@@ -20,6 +21,21 @@ const UserVerifications = () => {
     },
     onError: () => notifyError("Failed to verify user."),
   });
+
+  const { mutate: deleteMutation, isPending: deleting } = useMutation({
+    mutationFn: deleteUser,
+    onSuccess: () => {
+      notifySuccess("User Deleted!");
+      refetch();
+    },
+    onError: () => {
+      notifyError("Failed to delete.");
+    },
+  });
+
+  const handleDelete = (userId) => {
+    deleteMutation(userId);
+  };
 
   const handleVerify = (userId) => {
     mutate(userId);
@@ -48,12 +64,20 @@ const UserVerifications = () => {
                 <p className="text-gray-600 w-[30%] ">{user.email}</p>
                 <p className="text-gray-500 capitalize">{user.role}</p>
               </div>
-              <button
-                onClick={() => handleVerify(user._id)}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition mt-2 sm:mt-0 md:w-[10%]"
-              >
-                Verify
-              </button>
+              <div className="w-full md:w-[20%] flex justify-start md:justify-center items-center gap-4 mt-2">
+                <button
+                  onClick={() => handleVerify(user._id)}
+                  className="bg-green-600 text-white h-10 rounded hover:bg-green-700 transition sm:mt-0 w-[40%]"
+                >
+                  {verifying ? <Loader /> : "Verify"}
+                </button>
+                <button
+                  onClick={() => handleDelete(user._id)}
+                  className="bg-gray-600 text-white h-10 rounded hover:bg-red-700 transition sm:mt-0 w-[40%]"
+                >
+                  {deleting ? <Loader /> : "Delete"}
+                </button>
+              </div>
             </div>
           ))}
         </div>

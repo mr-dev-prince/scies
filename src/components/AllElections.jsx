@@ -65,10 +65,10 @@ const ElectionCard = ({ election, handleDelete }) => {
       <button
         onClick={() => handleDelete(election._id)}
         type="button"
-        className="text-red-600 text-xl hover:text-red-800 self-start sm:self-center"
+        className="text-red-600 text-md self-start sm:self-center flex items-center justify-center p-2 rounded-md border border-red-600 hover:bg-red-600 hover:text-white transition duration-200 ease-in-out gap-2"
         title="Delete election"
       >
-        <MdDelete />
+        <MdDelete /> Delete
       </button>
     </div>
   );
