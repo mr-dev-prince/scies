@@ -7,7 +7,9 @@ import eventsBg from "../assets/GV8.JPG";
 const Event = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
+  console.log(currentUser)
 
   return (
     <div className="h-fit flex flex-col justify-center items-center ">
@@ -38,7 +40,7 @@ const Event = () => {
 
 const AddEventButton = ({ onClick }) => {
   return (
-    <div className="fixed right-0 top-[20%] sm:top-[25%] z-50">
+    <div className="fixed right-0 top-[20%] sm:top-[25%] z-90">
       <button
         onClick={onClick}
         className="bg-blue-500 text-white px-3 sm:px-4 py-2 rounded-l-full flex gap-1 sm:gap-2 justify-center items-center text-sm sm:text-base hover:scale-95 duration-200 shadow-lg"
