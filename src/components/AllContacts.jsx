@@ -90,8 +90,6 @@ const AllContacts = () => {
 const ContactCard = ({ contact, handleMutation, loadingStatus }) => {
   const { name, email, category, message, resolved } = contact;
 
-  console.log(resolved);
-
   const getBgColor = (status) => {
     switch (status) {
       case 1:
@@ -168,12 +166,14 @@ const ContactCard = ({ contact, handleMutation, loadingStatus }) => {
           {loadingStatus.deleting ? <Loader /> : "Delete"}
         </button>
         <button
+          disabled={contact?.resolved === 1}
           className="bg-gray-400 hover:bg-green-500 text-white font-semibold h-10 w-32 flex justify-center items-center rounded-md"
           onClick={() => handleMutation(contact._id, "resolve")}
         >
           {loadingStatus.resolving ? <Loader /> : "Resolve"}
         </button>
         <button
+          disabled={contact?.resolved === 0}
           className="bg-gray-400 hover:bg-yellow-500 text-white font-semibold h-10 w-32 flex justify-center items-center rounded-md"
           onClick={() => handleMutation(contact._id, "reject")}
         >

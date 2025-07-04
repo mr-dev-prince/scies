@@ -86,10 +86,16 @@ const Footer = () => {
                 />
               </Link>
             </div>
+            <div className="mt-6 text-sm">
+              <p>Powered by:</p>
+              <p className="text-4xl font-bold bg-gradient-to-t from-blue-600 via-sky-500 to-orange-500 text-transparent bg-clip-text">
+                Votely
+              </p>
+            </div>
           </div>
         </div>
         <div className="mt-10 border-t border-gray-200 pt-6 text-sm text-center text-gray-400">
-          © {new Date().getFullYear()} SCIES. All rights reserved.
+          © {new Date().getFullYear()} Votely. All rights reserved.
         </div>
       </div>
     </footer>
