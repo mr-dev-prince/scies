@@ -4,9 +4,11 @@
 
 html,
 body {
-  @apply bg-gradient-to-b from-white via-sky-400 to-sky-600;
+  background-image: url("../public/images/bg2.jpg"); /* or .jpg or .svg */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-
 .cal-sans {
   font-family: "Cal Sans", sans-serif;
   font-style: normal;

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-transparent text-black py-10 mt-10 border-t border-gray-700/20">
+    <footer className=" text-black py-10 mt-10 border-t border-gray-700/20 bg-gray-200/50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-0">
           <div className="md:w-1/4">
@@ -17,7 +17,6 @@ const Footer = () => {
             </p>
           </div>
           <div>
-            <h2 className="text-lg font-semibold mb-4">Navigation</h2>
             <ul className="gap-4 text-sm text-black flex font-semibold ">
               <Link to={"/"} className="hover:text-red-700 cursor-pointer">
                 Home
@@ -88,7 +87,7 @@ const Footer = () => {
             </div>
             <div className="mt-6 text-sm">
               <p>Powered by:</p>
-              <p className="text-4xl font-bold bg-gradient-to-t from-blue-600 via-sky-500 to-orange-500 text-transparent bg-clip-text">
+              <p className="text-4xl font-bold bg-gradient-to-br from-red-600 via-orange-500 to-sky-500 text-transparent bg-clip-text">
                 Votely
               </p>
             </div>

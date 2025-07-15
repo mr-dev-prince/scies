@@ -48,7 +48,10 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-gradient-to-r from-white via-sky-200 to-sky-600 shadow-md px-6 fixed top-0 w-full h-[10vh] z-50">
+      <nav
+        className="bg-cover bg-center shadow-md px-6 fixed top-0 w-full h-[10vh] z-50"
+        style={{ backgroundImage: "url('/images/header-bg.jpg')" }}
+      >
         <div className="flex items-center justify-between h-full max-w-7xl mx-auto">
           <Link
             to="/"

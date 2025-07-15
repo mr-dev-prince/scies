@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import dummy from "../assets/dummy.jpeg";
 import { FaPenAlt } from "react-icons/fa";
-import { VscEyeClosed } from "react-icons/vsc";
+import { RxCross2 } from "react-icons/rx";
 import { notifyError, notifySuccess } from "../toast";
 import { useMutation } from "@tanstack/react-query";
 import { editUser, editStudent, uploadImage } from "../api";
@@ -155,7 +155,7 @@ const ProfileModal = ({ onClose }) => {
             onClick={onClose}
             className="absolute top-2 right-3 text-sm font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md transition"
           >
-            <VscEyeClosed />
+            <RxCross2 />
           </button>
 
           <h2 className="text-xl sm:text-2xl font-bold text-center text-blue-700 mb-4 sm:mb-6">

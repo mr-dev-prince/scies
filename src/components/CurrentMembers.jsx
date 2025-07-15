@@ -93,29 +93,35 @@ const CurrentMembers = () => {
         </div>
       </motion.div>
       <div className="w-full flex flex-col gap-14 px-6 sm:px-16 py-10">
-        {Object.entries(POSITION_GROUPS).map(([group]) => {
-          const members = groupedMembers[group];
-          if (!members || members.length === 0) return null;
+        {Object.keys(groupedMembers).length > 0 ? (
+          Object.entries(POSITION_GROUPS).map(([group]) => {
+            const members = groupedMembers[group];
+            if (!members || members.length === 0) return null;
 
-          return (
-            <motion.div
-              key={group}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 text-white bg-gradient-to-r from-cyan-500 via-indigo-900 to-cyan-500 py-3 rounded-md shadow-md">
-                {group}
-              </h2>
-              <div className="flex flex-wrap gap-5 justify-center bg-gray-700/40 py-4 rounded-md">
-                {members.map((member) => (
-                  <MemberCard key={member._id} member={member} />
-                ))}
-              </div>
-            </motion.div>
-          );
-        })}
+            return (
+              <motion.div
+                key={group}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 text-white bg-gradient-to-r from-cyan-500 via-indigo-900 to-cyan-500 py-3 rounded-md shadow-md">
+                  {group}
+                </h2>
+                <div className="flex flex-wrap gap-5 justify-center bg-gray-700/40 py-4 rounded-md">
+                  {members.map((member) => (
+                    <MemberCard key={member._id} member={member} />
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })
+        ) : (
+          <div className="text-center text-xl text-white font-semibold bg-red-500/80 py-6 rounded-md">
+            No Members Available
+          </div>
+        )}
       </div>
     </>
   );
