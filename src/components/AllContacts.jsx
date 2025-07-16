@@ -73,14 +73,18 @@ const AllContacts = () => {
         <Loader />
       ) : (
         <div className="w-full">
-          {data?.map((contact) => (
-            <ContactCard
-              key={contact._id}
-              contact={contact}
-              loadingStatus={loadingStatus}
-              handleMutation={handleMutation}
-            />
-          ))}
+          {data.length > 0 ? (
+            data?.map((contact) => (
+              <ContactCard
+                key={contact._id}
+                contact={contact}
+                loadingStatus={loadingStatus}
+                handleMutation={handleMutation}
+              />
+            ))
+          ) : (
+            <div className="w-full text text-center font-semibold">No query/requests available.</div>
+          )}
         </div>
       )}
     </div>

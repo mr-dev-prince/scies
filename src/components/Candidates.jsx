@@ -34,7 +34,7 @@ const Candidates = ({ role, members, electionId }) => {
 
   return (
     <div key={role}>
-      <h3 className="text-xl font-semibold mb-2 text-black w-full bg-gradient-to-r rounded-l-xl pl-4 py-1">
+      <h3 className="text-xl font-semibold mb-2 text-white w-full bg-gradient-to-r rounded-l-xl pl-4 py-1">
         {role}
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -51,7 +51,7 @@ const Candidates = ({ role, members, electionId }) => {
                   className="h-12 w-12 rounded-full object-cover"
                 />
                 <div>
-                  <p className="text-lg font-medium">{user?.name}</p>
+                  <p className="text-lg font-medium capitalize">{user?.name}</p>
                   <p className="text-sm text-gray-500">Votes : {votes}</p>
                 </div>
               </div>

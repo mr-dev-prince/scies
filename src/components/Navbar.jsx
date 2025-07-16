@@ -14,8 +14,8 @@ const NavLink = ({ to, children, onClick }) => {
         to={to}
         className={`block w-full py-2 px-4 text-left transition duration-200 ${
           isActive
-            ? "text-black font-bold border-l-4 border-black bg-white"
-            : "text-gray-800 hover:bg-gray-100"
+            ? "text-black font-bold border-l-4 border-black bg-gradient-to-r from-blue-500 to-transparent"
+            : "text-gray-800 hover:scale-95"
         }`}
       >
         {children}

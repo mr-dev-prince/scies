@@ -33,7 +33,7 @@ const MemberVerification = () => {
       {isLoading ? (
         <Loader />
       ) : unverifiedMembers.length === 0 ? (
-        <p className="text-gray-500">No unverification requests.</p>
+        <p className="text-gray-500">No verification requests.</p>
       ) : (
         <div className="flex flex-col gap-4 w-full">
           {unverifiedMembers.map(({ student: user, position, _id }) => (

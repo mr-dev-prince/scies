@@ -32,6 +32,7 @@ const Voting = () => {
         const groupedCandidates = groupNominationsByPosition(
           election.nominations
         );
+        console.log("candidates",groupedCandidates)
         return (
           <div key={election._id} className="w-full mb-6">
             <div className="h-[10vh] w-full flex flex-col sm:flex-row justify-center  md:justify-between px-4 sm:px-12 items-center bg-gradient-to-l from-white via-sky-200 to-sky-600 shadow-md rounded-md">
